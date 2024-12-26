@@ -1,4 +1,4 @@
-package com.ariel.noamhalaproject1;
+package com.ariel.noamhalaproject1.screens;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.ariel.noamhalaproject1.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

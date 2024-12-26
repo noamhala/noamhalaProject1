@@ -1,4 +1,4 @@
-package com.ariel.noamhalaproject1.model;
+package com.ariel.noamhalaproject1.models;
 
 public class User {
     String id, fname, lname,phone,email,password,city;
