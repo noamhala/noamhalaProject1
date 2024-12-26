@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cityArr">
+        <item>תל אביב</item>
+        <item>ראשון לציון</item>
+        <item>פתח תקווה</item>
+        <item>בת ים</item>
+        <item>חולון</item>
+        <item>חיפה</item>
+        <item>אילת</item>
+        <item>באר שבע</item>
+        <item>כפר סבא</item>
+        <item>רמת גן</item>
+        <item>הוד השרון</item>
+        <item>חדרה</item>
+        <item>נתניה</item>
+        <item>עכו</item>
+        <item>אשדוד</item>
+        <item>אשקלון</item>
+        <item>רחובות</item>
+        <item>מודיעין</item>
+        <item>בני ברק</item>
+        <item>נס ציונה</item>
+        <item>ירושלים</item>
+        <item>עפולה</item>
+        <item>קרית גת</item>
+        <item>קרית שמונה</item>
+        <item>לוד</item>
+        <item>רמלה</item>
+        <item>אור יהודה</item>
+        <item>תל מונד</item>
+        <item>גדרה</item>
+        <item>צפת</item>
+        <item>מגדל העמק</item>
+        <item>ירוחם</item>
+        <item>צורן</item>
+        <item>בני ברק</item>
+
+
+    </string-array>
+</resources>
