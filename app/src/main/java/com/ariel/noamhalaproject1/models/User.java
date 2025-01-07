@@ -1,9 +1,11 @@
 package com.ariel.noamhalaproject1.models;
 
 public class User {
-    String id, fname, lname,phone,email,password,city;
+    // Fields for the User class
+    String id, fname, lname, phone, email, password, city, gender;
 
-    public User(String id, String fname, String lname, String phone, String email, String password, String city) {
+    // Constructor with all parameters
+    public User(String id, String fname, String lname, String phone, String email, String password, String city, String gender) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -11,6 +13,84 @@ public class User {
         this.email = email;
         this.password = password;
         this.city = city;
+        this.gender = gender;
+    }
+
+    // Constructor with mandatory parameters (id, fname, lname, phone, email, and gender)
+    public User(String id, String fname, String lname, String phone, String email, String gender) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.email = email;
+        this.password = "";  // Default empty password
+        this.city = "";      // Default empty city
+        this.gender = gender;
+    }
+
+    public User(User other) {
+        this.id = other.id;
+        this.fname = other.fname;
+        this.lname = other.lname;
+        this.phone = other.phone;
+        this.email = other.email;
+        this.password = other.password;
+        this.city = other.city;
+        this.gender = other.gender;
+    }
+
+
+    // Default constructor
+    public User() {
+    }
+
+    // Getters and Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCity() {
@@ -21,65 +101,15 @@ public class User {
         this.city = city;
     }
 
-    public User() {
+    public String getGender() {
+        return gender;
     }
 
-    public User(String id, String fname, String lname, String phone, String email) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    // toString() method to represent the User object as a string
     @Override
     public String toString() {
         return "User{" +
@@ -90,6 +120,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

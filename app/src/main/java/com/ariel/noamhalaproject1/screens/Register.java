@@ -33,7 +33,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     private static final String TAG = "RegisterActivity";
 
     private EditText etFname, etLname, etPhone, etEmail,etPass;
-    private String fname, lname, phone, email, password;
+    private String fname, lname, phone, email, password, gender;
     private  Button btnRegister;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -129,7 +129,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                 public void onCompleted(String id) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "createUserWithEmail:success");
-                    User newUser=new User(id, fname, lname,phone, email,password,city);
+                    User newUser=new User(id, fname, lname,phone, email,password,city, gender);
                     databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
                         @Override
                         public void onCompleted(Void object) {
