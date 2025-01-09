@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,9 +23,6 @@ import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 public class Register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -130,41 +126,53 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
         }
 
         if (isValid) {
-            // Call sign-up method
-            authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
-                @Override
-                public void onCompleted(String id) {
-                    // Sign-up success, proceed to save user to the database
-                    Log.d("TAG", "createUserWithEmail:success");
-                    User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser);
-                    databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
-                        @Override
-                        public void onCompleted(Void object) {
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
+            // Check if the selected TypeUser is "Trainer" or "Trainee"
+            if ("מאמן".equals(TypeUser)) {
+                // Go to AddDetails activity if user is Trainer or Trainee
+                Intent go = new Intent(getApplicationContext(), AddDetailsTrainee.class);
+                startActivity(go);
+            } else if("מתאמן".equals(TypeUser)) {
+                Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
+                startActivity(go);
+            }
+            else{
+                // Proceed with the usual registration flow
 
-                            editor.putString("email", email);
-                            editor.putString("password", password);
-                            editor.commit();
+                authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
+                    @Override
+                    public void onCompleted(String id) {
+                        // Sign-up success, proceed to save user to the database
+                        Log.d("TAG", "createUserWithEmail:success");
+                        User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser);
+                        databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
+                            @Override
+                            public void onCompleted(Void object) {
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                            Intent goLog = new Intent(getApplicationContext(), Login.class);
-                            startActivity(goLog);
-                        }
+                                editor.putString("email", email);
+                                editor.putString("password", password);
+                                editor.commit();
 
-                        @Override
-                        public void onFailed(Exception e) {
-                            // Handle failure
-                        }
-                    });
-                }
+                                Intent goLog = new Intent(getApplicationContext(), Login.class);
+                                startActivity(goLog);
+                            }
 
-                @Override
-                public void onFailed(Exception e) {
-                    // Sign-up failed
-                    Log.w("TAG", "createUserWithEmail:failure", e);
-                    Toast.makeText(Register.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                            @Override
+                            public void onFailed(Exception e) {
+                                // Handle failure
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        // Sign-up failed
+                        Log.w("TAG", "createUserWithEmail:failure", e);
+                        Toast.makeText(Register.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
@@ -184,4 +192,5 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     public void onNothingSelected(AdapterView<?> adapterView) {
         // Handle if no item is selected (optional)
     }
+
 }

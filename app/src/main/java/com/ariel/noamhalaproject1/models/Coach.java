@@ -29,7 +29,8 @@ public class Coach extends User implements Serializable {
     }
 
     // Constructor to initialize only domain, experience, and price
-    public Coach(String domain, int experience, double price) {
+    public Coach(User user, String domain, int experience, double price) {
+        super(user);
         this.domain = domain;
         this.experience = experience;
         this.price = price;
