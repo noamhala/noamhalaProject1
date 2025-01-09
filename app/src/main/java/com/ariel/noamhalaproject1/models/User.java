@@ -2,7 +2,19 @@ package com.ariel.noamhalaproject1.models;
 
 public class User {
     // Fields for the User class
-    String id, fname, lname, phone, email, password, city, gender;
+    String id, fname, lname, phone, email, password, city, gender, typeUser;
+
+    public User(String id, String fname, String lname, String phone, String email, String password, String city, String gender, String typeUser) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.city = city;
+        this.gender = gender;
+        this.typeUser = typeUser;
+    }
 
     // Constructor with all parameters
     public User(String id, String fname, String lname, String phone, String email, String password, String city, String gender) {
@@ -109,7 +121,14 @@ public class User {
         this.gender = gender;
     }
 
-    // toString() method to represent the User object as a string
+    public String getTypeUser() {
+        return typeUser;
+    }
+
+    public void setTypeUser(String typeUser) {
+        this.typeUser = typeUser;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -121,6 +140,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
                 ", gender='" + gender + '\'' +
+                ", typeUser='" + typeUser + '\'' +
                 '}';
     }
+
 }

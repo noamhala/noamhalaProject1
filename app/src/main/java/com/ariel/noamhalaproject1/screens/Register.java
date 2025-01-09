@@ -1,4 +1,5 @@
 package com.ariel.noamhalaproject1.screens;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,31 +24,26 @@ import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class Register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+
     private static final String TAG = "RegisterActivity";
 
-    private EditText etFname, etLname, etPhone, etEmail,etPass;
+    private EditText etFname, etLname, etPhone, etEmail, etPass;
     private String fname, lname, phone, email, password, gender;
-    private  Button btnRegister;
+    private Button btnRegister;
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
 
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
 
-
-    String city;
-    Spinner spCity;
-
+    String city, TypeUser; // TypeUser is the user type selected from the spinner
+    Spinner spCity, spTypeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +56,22 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
             return insets;
         });
 
+        // Initialize services
         authenticationService = AuthenticationService.getInstance();
         databaseService = DatabaseService.getInstance();
         initViews();
 
-
+        // SharedPreferences initialization
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
+        // Set onClick listener
         btnRegister.setOnClickListener(this);
+
+        // Set up the Spinner adapter for spTypeUser (user type selection)
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spTypeUser, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTypeUser.setAdapter(adapter);
     }
 
     private void initViews() {
@@ -76,60 +81,62 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
         etPhone = findViewById(R.id.etPhone);
         etPass = findViewById(R.id.etPass);
         spCity = findViewById(R.id.spCity);
+        spTypeUser = findViewById(R.id.spTypeUser);  // Spinner for user type
         btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(this);
-        spCity.setOnItemSelectedListener(this);
-    }
 
+        // Set item selected listener for both spinners
+        spTypeUser.setOnItemSelectedListener(this); // Spinner for user type
+        spCity.setOnItemSelectedListener(this); // Spinner for city (if needed)
+    }
 
     @Override
     public void onClick(View view) {
+        // Retrieve input values
         fname = etFname.getText().toString();
-        lname =etLname.getText().toString();
-        phone= etPhone.getText().toString();
+        lname = etLname.getText().toString();
+        phone = etPhone.getText().toString();
         email = etEmail.getText().toString();
         password = etPass.getText().toString();
-        if(!email.contains("@")){
-            etEmail.setError("Enter correct email");
+
+        // Validate input
+        if (!email.contains("@")) {
+            etEmail.setError("Enter a correct email");
         }
 
-        //check if registration is valid
-        Boolean isValid=true;
-        if (fname.length()<2){
-
-            etFname.setError("שם פרטי קצר מדי");
+        Boolean isValid = true;
+        if (fname.length() < 2) {
+            etFname.setError("First name is too short");
             isValid = false;
         }
-        if (lname.length()<2){
-            Toast.makeText(Register.this,"שם משפחה קצר מדי", Toast.LENGTH_LONG).show();
+        if (lname.length() < 2) {
+            Toast.makeText(Register.this, "Last name is too short", Toast.LENGTH_LONG).show();
             isValid = false;
         }
-        if (phone.length()<9||phone.length()>10){
-            Toast.makeText(Register.this,"מספר הטלפון לא תקין", Toast.LENGTH_LONG).show();
+        if (phone.length() < 9 || phone.length() > 10) {
+            Toast.makeText(Register.this, "Invalid phone number", Toast.LENGTH_LONG).show();
             isValid = false;
         }
-
-        if (!email.contains("@")){
-            Toast.makeText(Register.this,"כתובת האימייל לא תקינה", Toast.LENGTH_LONG).show();
+        if (!email.contains("@")) {
+            Toast.makeText(Register.this, "Invalid email address", Toast.LENGTH_LONG).show();
             isValid = false;
         }
-        if(password.length()<6){
-            Toast.makeText(Register.this,"הסיסמה קצרה מדי", Toast.LENGTH_LONG).show();
+        if (password.length() < 6) {
+            Toast.makeText(Register.this, "Password is too short", Toast.LENGTH_LONG).show();
             isValid = false;
         }
-        if(password.length()>20){
-            Toast.makeText(Register.this,"הסיסמה ארוכה מדי", Toast.LENGTH_LONG).show();
+        if (password.length() > 20) {
+            Toast.makeText(Register.this, "Password is too long", Toast.LENGTH_LONG).show();
             isValid = false;
         }
 
-        if (isValid==true){
-
+        if (isValid) {
+            // Call sign-up method
             authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
                 @Override
                 public void onCompleted(String id) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign-up success, proceed to save user to the database
                     Log.d("TAG", "createUserWithEmail:success");
-                    User newUser=new User(id, fname, lname,phone, email,password,city, gender);
+                    User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser);
                     databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
                         @Override
                         public void onCompleted(Void object) {
@@ -137,41 +144,44 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
                             editor.putString("email", email);
                             editor.putString("password", password);
-
                             editor.commit();
-                            Intent goLog=new Intent(getApplicationContext(), Login.class);
+
+                            Intent goLog = new Intent(getApplicationContext(), Login.class);
                             startActivity(goLog);
                         }
 
                         @Override
                         public void onFailed(Exception e) {
-
+                            // Handle failure
                         }
                     });
-
                 }
 
                 @Override
                 public void onFailed(Exception e) {
-                    // If sign in fails, display a message to the user.
+                    // Sign-up failed
                     Log.w("TAG", "createUserWithEmail:failure", e);
                     Toast.makeText(Register.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-        city = (String) adapterView.getItemAtPosition(i);
-
+    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+        // Handle selection for spCity and spTypeUser
+        if (parentView.getId() == R.id.spTypeUser) {
+            // Capture selected user type
+            TypeUser = parentView.getItemAtPosition(position).toString();  // Store the selected user type
+        } else if (parentView.getId() == R.id.spCity) {
+            // Capture selected city (if needed)
+            city = parentView.getItemAtPosition(position).toString();
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // Handle if no item is selected (optional)
     }
 }
