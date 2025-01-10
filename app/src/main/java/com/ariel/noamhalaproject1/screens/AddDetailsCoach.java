@@ -81,17 +81,17 @@ public class AddDetailsCoach extends AppCompatActivity {
         User myCoach = getCoach();  // You need to implement or get this User object
 
         // Create a Coach object with the gathered details
-        Coach coach = new Coach(myCoach.getId(), myCoach.getFname(), myCoach.getLname(),
-                    myCoach.getPhone(), myCoach.getEmail(), myCoach.getPass(),
-                myCoach.getGender(), myCoach.getCity(), domain, experience, price);
+     //   Coach coach = new Coach(myCoach.getId(), myCoach.getFname(), myCoach.getLname(),
+    //                myCoach.getPhone(), myCoach.getEmail(), myCoach.getPass(),
+     //           myCoach.getGender(), myCoach.getCity(), domain, experience, price);
 
         // Proceed with storing or using the coach data (e.g., saving to the database, etc.)
         // For now, we will simply display a Toast and move to another screen
         Toast.makeText(this, "Coach details saved", Toast.LENGTH_SHORT).show();
 
         // Example of transitioning to another screen after successful registration
-        Intent intent = new Intent(AddDetailsCoach.this, NextActivity.class);  // Replace with your desired activity
-        startActivity(intent);
+      //  Intent intent = new Intent(AddDetailsCoach.this, NextActivity.class);  // Replace with your desired activity
+   //     startActivity(intent);
     }
 
     // You can implement this method to retrieve the actual coach, possibly from previous activity's intent or shared preferences

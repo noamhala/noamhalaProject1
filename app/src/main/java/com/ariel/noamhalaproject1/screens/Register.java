@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
+import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
@@ -29,7 +30,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     private static final String TAG = "RegisterActivity";
 
     private EditText etFname, etLname, etPhone, etEmail, etPass;
-    private String fname, lname, phone, email, password, gender;
+    private String fname, lname, phone, email, password;
     private Button btnRegister;
 
     public static final String MyPREFERENCES = "MyPrefs";
@@ -40,6 +41,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
     String city, TypeUser; // TypeUser is the user type selected from the spinner
     Spinner spCity, spTypeUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,15 +130,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
         if (isValid) {
             // Check if the selected TypeUser is "Trainer" or "Trainee"
-            if ("מאמן".equals(TypeUser)) {
-                // Go to AddDetails activity if user is Trainer or Trainee
-                Intent go = new Intent(getApplicationContext(), AddDetailsTrainee.class);
-                startActivity(go);
-            } else if("מתאמן".equals(TypeUser)) {
-                Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
-                startActivity(go);
-            }
-            else{
+
+
                 // Proceed with the usual registration flow
 
                 authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
@@ -153,8 +149,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                                 editor.putString("password", password);
                                 editor.commit();
 
-                                Intent goLog = new Intent(getApplicationContext(), Login.class);
-                                startActivity(goLog);
+
+                                if (TypeUser.equals("מאמן")) {
+                                    // Go to AddDetails activity if user is Trainer or Trainee
+                                    Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
+
+                                    startActivity(go);
+                                } else if(TypeUser.equals("מתאמן")) {
+                                    Trainee newTrain=new Trainee(newUser, 0,0,0,null);
+                                    Intent go = new Intent(getApplicationContext(), AddDetailsTrainee.class);
+                                        go.putExtra("trainee",newTrain);
+                                    startActivity(go);
+                                }
+
+
                             }
 
                             @Override
@@ -173,7 +181,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                     }
                 });
             }
-        }
+
     }
 
     @Override

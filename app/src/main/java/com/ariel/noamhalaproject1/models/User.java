@@ -1,10 +1,12 @@
 package com.ariel.noamhalaproject1.models;
 
-public class User {
-    // Fields for the User class
-    String id, fname, lname, phone, email, password, city, gender, typeUser;
+import java.io.Serializable;
 
-    public User(String id, String fname, String lname, String phone, String email, String password, String city, String gender, String typeUser) {
+public class User implements Serializable {
+    // Fields for the User class
+    String id, fname, lname, phone, email, password, city, typeUser;
+
+    public User(String id, String fname, String lname, String phone, String email, String password, String city, String typeUser) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -12,24 +14,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.city = city;
-        this.gender = gender;
         this.typeUser = typeUser;
     }
 
-    // Constructor with all parameters
-    public User(String id, String fname, String lname, String phone, String email, String password, String city, String gender) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.city = city;
-        this.gender = gender;
-    }
-
-    // Constructor with mandatory parameters (id, fname, lname, phone, email, and gender)
-    public User(String id, String fname, String lname, String phone, String email, String gender) {
+    // Constructor with mandatory parameters (id, fname, lname, phone, email, and typeUser)
+    public User(String id, String fname, String lname, String phone, String email, String typeUser) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -37,7 +26,7 @@ public class User {
         this.email = email;
         this.password = "";  // Default empty password
         this.city = "";      // Default empty city
-        this.gender = gender;
+        this.typeUser = typeUser;
     }
 
     public User(User other) {
@@ -48,9 +37,8 @@ public class User {
         this.email = other.email;
         this.password = other.password;
         this.city = other.city;
-        this.gender = other.gender;
+        this.typeUser = other.typeUser;
     }
-
 
     // Default constructor
     public User() {
@@ -113,14 +101,6 @@ public class User {
         this.city = city;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getTypeUser() {
         return typeUser;
     }
@@ -139,9 +119,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
-                ", gender='" + gender + '\'' +
                 ", typeUser='" + typeUser + '\'' +
                 '}';
     }
-
 }

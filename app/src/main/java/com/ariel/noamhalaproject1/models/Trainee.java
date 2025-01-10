@@ -18,6 +18,8 @@ public class Trainee extends User implements Serializable {
 
     }
 
+
+
     public Trainee(String id, String fname, String lname, String phone, String email, String gender, double height, double weight, int age, User myCoach) {
         super(id, fname, lname, phone, email, gender);  // Now passing all necessary parameters
         this.height = height;
@@ -99,7 +101,6 @@ public class Trainee extends User implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
-                ", gender='" + gender + '\'' +
                 '}';
     }
 }
