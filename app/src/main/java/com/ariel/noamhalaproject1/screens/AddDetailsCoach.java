@@ -2,7 +2,7 @@ package com.ariel.noamhalaproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,18 +15,25 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.Coach;
-import com.ariel.noamhalaproject1.models.User;
+import com.ariel.noamhalaproject1.services.AuthenticationService;
+import com.ariel.noamhalaproject1.services.DatabaseService;
 
 public class AddDetailsCoach extends AppCompatActivity {
+
+    private static final String TAG = "AddDetailsCoach";
 
     // Declare views
     private EditText etDomain, etPrice, etExperience;
     private Button btnFinishCoach;
 
     // Variables to hold coach details
+    private String domain;
     private double price;
     private int experience;
-    private String domain;
+
+    private Coach currentCoach; // The coach object passed from Register activity
+    private DatabaseService databaseService;
+    private AuthenticationService authenticationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,64 +48,78 @@ public class AddDetailsCoach extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize services
+        databaseService = DatabaseService.getInstance();
+        authenticationService = AuthenticationService.getInstance();
+
         // Initialize views
         initViews();
 
-        // Set OnClickListener for button
+        // Get the coach object from the intent
+        Intent intent = getIntent();
+        currentCoach = (Coach) intent.getSerializableExtra("coach");
+
+        // Set OnClickListener for the finish button
         btnFinishCoach.setOnClickListener(view -> finishCoachRegistration());
     }
 
     private void initViews() {
-        etDomain = findViewById(R.id.editTextText);  // For Domain
-        etPrice = findViewById(R.id.etPrice);  // For Price per workout
-        etExperience = findViewById(R.id.etExperience);  // For Years of experience
-        btnFinishCoach = findViewById(R.id.btnFinishTrainee);  // Button ID may vary, adjust accordingly
+        etDomain = findViewById(R.id.etDomain); // Domain of expertise (e.g., fitness, yoga, etc.)
+        etPrice = findViewById(R.id.etPrice);   // Price per session
+        etExperience = findViewById(R.id.etExperience); // Years of experience
+        btnFinishCoach = findViewById(R.id.btnFinishCoach);
     }
 
     private void finishCoachRegistration() {
-        // Get the values from the EditText fields
+        // Get values from input fields
         String domainStr = etDomain.getText().toString();
         String priceStr = etPrice.getText().toString();
         String experienceStr = etExperience.getText().toString();
 
-        // Validate the input
+        // Validate inputs
         if (domainStr.isEmpty() || priceStr.isEmpty() || experienceStr.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
-            // Convert input to appropriate types
+            domain = domainStr;
             price = Double.parseDouble(priceStr);
             experience = Integer.parseInt(experienceStr);
-            domain = domainStr;
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Assuming we have the user's coach (this can be passed from the previous activity or inferred)
-        User myCoach = getCoach();  // You need to implement or get this User object
+        // Update the currentCoach object with additional details
+        currentCoach.setTypeUser("מאמן"); // Ensure the user type is set correctly
+        currentCoach.setCity(domain); // Use the domain as part of additional info (if applicable)
 
-        // Create a Coach object with the gathered details
-     //   Coach coach = new Coach(myCoach.getId(), myCoach.getFname(), myCoach.getLname(),
-    //                myCoach.getPhone(), myCoach.getEmail(), myCoach.getPass(),
-     //           myCoach.getGender(), myCoach.getCity(), domain, experience, price);
-
-        // Proceed with storing or using the coach data (e.g., saving to the database, etc.)
-        // For now, we will simply display a Toast and move to another screen
-        Toast.makeText(this, "Coach details saved", Toast.LENGTH_SHORT).show();
-
-        // Example of transitioning to another screen after successful registration
-      //  Intent intent = new Intent(AddDetailsCoach.this, NextActivity.class);  // Replace with your desired activity
-   //     startActivity(intent);
+        // Save the coach to the database
+        registerCoach();
     }
 
-    // You can implement this method to retrieve the actual coach, possibly from previous activity's intent or shared preferences
-    private User getCoach() {
-        // Placeholder method to simulate getting the coach, you should pass this data when necessary
-        // For example, if you are passing the coach data from the previous activity via Intent:
-        Intent intent = getIntent();
-        return (User) intent.getSerializableExtra("coach");  // Get coach from Intent extras
+    private void registerCoach() {
+        Log.d(TAG, "registerCoach: Registering coach...");
+
+        databaseService.createNewCoach(currentCoach, new DatabaseService.DatabaseCallback<Void>() {
+
+            @Override
+            public void onCompleted(Void object) {
+                Log.d(TAG, "onCompleted: Coach registered successfully");
+                Toast.makeText(AddDetailsCoach.this, "Coach details saved!", Toast.LENGTH_SHORT).show();
+
+                // Redirect to MainActivity and clear back stack to prevent user from returning to the register screen
+                Intent mainIntent = new Intent(AddDetailsCoach.this, CoachMainPage.class);
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(mainIntent);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "onFailed: Failed to register coach", e);
+                Toast.makeText(AddDetailsCoach.this, "Failed to save coach details", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -44,6 +44,9 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(String id, String fname, String lname, String phone, String email, String pass, String city) {
+    }
+
     // Getters and Setters
     public String getId() {
         return id;

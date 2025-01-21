@@ -2,101 +2,96 @@ package com.ariel.noamhalaproject1.models;
 
 import java.io.Serializable;
 
-public class Coach implements Serializable {
-    private String id, fname, lname, phone, email, password, city, typeUser;
+public class Coach extends User implements Serializable {
+    protected String domain;   // Area of expertise (e.g., fitness, sports)
+    protected double price;    // Coaching price
+    protected int experience;  // Number of years of experience
 
-    // Constructor
-    public Coach(String id, String fname, String lname, String phone, String email, String password, String city, String typeUser) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.city = city;
-        this.typeUser = typeUser;
+    // Constructor with all parameters
+    public Coach(String id, String fname, String lname, String phone, String email, String pass,
+                 String gender, String city, String domain, int experience, double price) {
+        super(id, fname, lname, phone, email, pass, gender, city); // Passing to the superclass constructor
+        this.domain = domain;
+        this.experience = experience;
+        this.price = price;
     }
 
-    // Default constructor (for Firebase)
-    public Coach() {}
 
-    // Getters and Setters
-    public String getId() {
-        return id;
+
+    // Copy constructor
+    public Coach(Coach coach) {
+        super(coach);
+
+        this.domain = coach.getDomain();
+        this.experience = coach.getExperience();
+        this.price = coach.getPrice();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    // Constructor to initialize only domain, experience, and price
+    public Coach(User user, String domain, double price, int experience) {
+        super(user); // Calls the User class constructor
+        this.domain = domain;
+        this.price = price;
+        this.experience = experience;
     }
 
-    public String getFname() {
-        return fname;
+
+    // Default constructor
+    public Coach() {
+        super(); // Call the superclass constructor (if needed, could be modified)
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    // Getters and Setters for all fields:
+
+    // Getters and Setters for domain
+    public String getDomain() {
+        return domain;
     }
 
-    public String getLname() {
-        return lname;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    // Getters and Setters for experience
+    public int getExperience() {
+        return experience;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    // Getters and Setters for price
+    public double getPrice() {
+        return price;
     }
 
-    public String getEmail() {
-        return email;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPass() {
+        return super.getPassword();  // Accessing the User class's password via getter
     }
 
-    public String getPassword() {
-        return password;
+    public void setPass(String pass) {
+        super.setPassword(pass);  // Accessing the User class's password via setter
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getTypeUser() {
-        return typeUser;
-    }
-
-    public void setTypeUser(String typeUser) {
-        this.typeUser = typeUser;
-    }
-
-    // toString method for logging
     @Override
     public String toString() {
         return "Coach{" +
-                "id='" + id + '\'' +
+                "domain='" + domain + '\'' +
+                ", price=" + price +
+                ", experience=" + experience +
+                ", id='" + id + '\'' +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
-                ", typeUser='" + typeUser + '\'' +
                 '}';
     }
 }

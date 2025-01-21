@@ -32,14 +32,14 @@ public class Trainee extends User implements Serializable {
     public Trainee(User user, double height, double weight, int age, User myCoach) {
         super(user);
         this.height = height;
-        Weight = weight;
+        this.Weight = weight;
         this.age = age;
         this.myCoach = myCoach;
     }
 
     public Trainee(double height, double weight, int age, User myCoach) {
         this.height = height;
-        Weight = weight;
+        this.Weight = weight;
         this.age = age;
         this.myCoach = myCoach;
     }

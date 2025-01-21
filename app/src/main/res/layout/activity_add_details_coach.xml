@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+
     android:layout_height="match_parent"
     tools:context=".screens.AddDetailsCoach">
 
@@ -12,11 +14,11 @@
         android:layout_width="250dp"
         android:layout_height="0dp"
         android:layout_marginTop="62dp"
-        android:layout_marginBottom="74dp"
+        android:layout_marginBottom="81dp"
         android:gravity="center"
         android:text="הוספת פרטים מאמן"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/etDomain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,47 +28,48 @@
         android:id="@+id/etPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="54dp"
         android:ems="10"
         android:hint="Price per Workout "
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/etExperience"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <EditText
-        android:id="@+id/etExperience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp"
-        android:ems="10"
-        android:hint="Years of experience"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/btnFinishTrainee"
-        app:layout_constraintStart_toStartOf="@+id/etPrice"
-        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
-
-    <Button
-        android:id="@+id/btnFinishTrainee"
-        android:layout_width="189dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="173dp"
-        android:background="@drawable/rounded_button"
-        android:text="סיום הרשמה"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnFinishCoach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etExperience" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etExperience"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="51dp"
+        android:layout_marginBottom="76dp"
+        android:ems="10"
+        android:hint="Years of experience"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/etPrice"
+        app:layout_constraintStart_toStartOf="@+id/etDomain"
+        app:layout_constraintTop_toBottomOf="@+id/etDomain" />
+
+    <Button
+        android:id="@+id/btnFinishCoach"
+        android:layout_width="189dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="180dp"
+        android:background="@drawable/rounded_button"
+        android:text="סיום הרשמה"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+
+    <EditText
+        android:id="@+id/etDomain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
         android:ems="10"
         android:hint="Domain"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/etPrice"
+        app:layout_constraintBottom_toTopOf="@+id/etExperience"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview5" />

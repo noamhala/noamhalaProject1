@@ -15,13 +15,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseService {
+public class
+DatabaseService {
 
     // Tag for logging
     private static final String TAG = "DatabaseService";
 
     // Callback interface for database operations
     public interface DatabaseCallback<T> {
+
         void onCompleted(T object);
         void onFailed(Exception e);
     }

@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
+import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
@@ -151,16 +152,25 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
 
                                 if (TypeUser.equals("מאמן")) {
-                                    // Go to AddDetails activity if user is Trainer or Trainee
-                                    Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
+                                    // Create a new Coach object with placeholder values for additional fields
 
+                                    Coach newCoach = new Coach(newUser,"domain",0.0,0);
+
+                                    // Redirect to AddDetailsCoach activity, passing the Coach object
+                                    Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
+                                    go.putExtra("coach", newCoach); // Pass the Coach object to the next activity
                                     startActivity(go);
-                                } else if(TypeUser.equals("מתאמן")) {
-                                    Trainee newTrain=new Trainee(newUser, 0,0,0,null);
+
+                                } else if (TypeUser.equals("מתאמן")) {
+                                    // Create a new Trainee object with placeholder values for additional fields
+                                    Trainee newTrain = new Trainee(newUser, 0, 0, 0, null);
+
+                                    // Redirect to AddDetailsTrainee activity, passing the Trainee object
                                     Intent go = new Intent(getApplicationContext(), AddDetailsTrainee.class);
-                                        go.putExtra("trainee",newTrain);
+                                    go.putExtra("trainee", newTrain); // Pass the Trainee object to the next activity
                                     startActivity(go);
                                 }
+
 
 
                             }

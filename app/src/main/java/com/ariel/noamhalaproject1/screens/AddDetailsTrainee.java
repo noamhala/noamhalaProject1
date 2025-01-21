@@ -3,7 +3,6 @@ package com.ariel.noamhalaproject1.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -132,7 +131,7 @@ public class AddDetailsTrainee extends AppCompatActivity {
                         //  SharedPreferencesUtil.saveUser(RegisterActivity.this, user);
                         Log.d(TAG, "onCompleted: Redirecting to MainActivity");
                         /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
-                        Intent mainIntent = new Intent(AddDetailsTrainee.this, MainActivity.class);
+                        Intent mainIntent = new Intent(AddDetailsTrainee.this, TraineeMainPage.class);
                         /// clear the back stack (clear history) and start the MainActivity
                         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(mainIntent);
