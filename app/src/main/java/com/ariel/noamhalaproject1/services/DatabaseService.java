@@ -87,7 +87,7 @@ DatabaseService {
     }
 
     // Public method to create a new user in the database
-    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+   public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("users/" + user.getId(), user, callback);
     }
 

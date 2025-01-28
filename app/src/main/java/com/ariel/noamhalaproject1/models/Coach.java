@@ -44,12 +44,12 @@ public class Coach extends User implements Serializable {
     // Getters and Setters for all fields:
 
     // Getters and Setters for domain
-    public String getDomain() {
-        return domain;
-    }
-
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public String getDomain() {
+        return domain;
     }
 
     // Getters and Setters for experience

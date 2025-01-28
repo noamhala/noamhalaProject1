@@ -45,4 +45,17 @@
    </string-array>
 
 
+
+    <string-array name="DomainArr">
+        <item>Street lifting</item>
+        <item>Pilates</item>
+        <item>Weight lifting</item>
+        <item>Yoga</item>
+        <item>Football</item>
+        <item>Basketball</item>
+        <item>Body Building</item>
+        <item>Swimming</item>
+    </string-array>
+
+
 </resources>

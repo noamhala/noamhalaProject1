@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
+import com.ariel.noamhalaproject1.TraineeMainPage;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
