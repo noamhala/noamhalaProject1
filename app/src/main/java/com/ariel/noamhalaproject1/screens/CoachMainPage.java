@@ -1,4 +1,4 @@
-package com.ariel.noamhalaproject1;
+package com.ariel.noamhalaproject1.screens;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.ariel.noamhalaproject1.R;
 
 public class CoachMainPage extends AppCompatActivity {
 

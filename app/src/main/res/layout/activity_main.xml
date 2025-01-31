@@ -51,5 +51,20 @@
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rounded_button"
+        android:gravity="center"
+        android:onClick="goListCoach"
+        android:text="what"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

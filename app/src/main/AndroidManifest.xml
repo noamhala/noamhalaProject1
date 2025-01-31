@@ -13,22 +13,22 @@
         android:theme="@style/Theme.NoamhalaProject1"
         tools:targetApi="31">
         <activity
-            android:name=".CoachRequest"
+            android:name=".screens.CoachRequest"
             android:exported="false" />
         <activity
-            android:name=".CoachSchedule"
+            android:name=".screens.CoachSchedule"
             android:exported="false" />
         <activity
-            android:name=".ListCoach"
+            android:name=".screens.ListCoach"
             android:exported="false" />
         <activity
-            android:name=".TraineeMainPage"
+            android:name=".screens.TraineeMainPage"
             android:exported="false" />
         <activity
-            android:name=".CoachMainPage"
+            android:name=".screens.CoachMainPage"
             android:exported="false" />
         <activity
-            android:name=".TraineeList"
+            android:name=".screens.TraineeList"
             android:exported="false" />
         <activity
             android:name=".screens.AddDetailsCoach"
@@ -37,7 +37,7 @@
             android:name=".screens.AddDetailsTrainee"
             android:exported="false" />
         <activity
-            android:name=".LIstSchedule"
+            android:name=".screens.LIstSchedule"
             android:exported="false" />
         <activity
             android:name=".screens.AddItem"

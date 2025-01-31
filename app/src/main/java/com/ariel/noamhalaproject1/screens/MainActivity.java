@@ -45,5 +45,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void goListCoach(View view) {
+        // Create an Intent to go to the Login activity
+        Intent go = new Intent(getApplicationContext(), ListCoach.class);
 
+        // Start the Login activity
+
+
+        startActivity(go);
+    }
 }

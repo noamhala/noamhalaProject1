@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.ariel.noamhalaproject1.CoachMainPage;
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.services.AuthenticationService;

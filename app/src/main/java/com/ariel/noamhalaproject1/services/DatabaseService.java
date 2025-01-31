@@ -92,18 +92,26 @@ DatabaseService {
     }
 
     // Public method to get a user from the database by ID
-    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
-        getData("users/" + uid, User.class, callback);
+    public void getUser( @NotNull final DatabaseCallback<User> callback) {
+        getData("users/", User.class, callback);
     }
 
-    // Public method to generate a new ID for a food item
-    public String generateFoodId() {
-        return generateNewId("foods");
-    }
+    public void getCoaches(@NotNull final DatabaseCallback<List<Coach>> callback) {
+        readData("coaches/").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Coach> coaches = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Coach coach = dataSnapshot.getValue(Coach.class);
+                Log.d(TAG, "Got coaches: " + coach);
+                coaches.add(coach);
+            });
 
-    // Public method to generate a new ID for a cart
-    public String generateCartId() {
-        return generateNewId("carts");
+            callback.onCompleted(coaches);
+        });
     }
 
     // Public method to create a new trainee in the database

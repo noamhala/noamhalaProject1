@@ -1,4 +1,4 @@
-package com.ariel.noamhalaproject1;
+package com.ariel.noamhalaproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.ariel.noamhalaproject1.screens.Register;
+import com.ariel.noamhalaproject1.R;
 
 public class TraineeMainPage extends AppCompatActivity {
 

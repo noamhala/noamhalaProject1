@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txtCoachName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/txtDomain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/TxtExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/txtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="6dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
