@@ -25,6 +25,7 @@ import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
+import com.ariel.noamhalaproject1.utils.SharedPreferencesUtil;
 
 public class Register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -34,8 +35,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     private String fname, lname, phone, email, password;
     private Button btnRegister;
 
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences sharedpreferences;
+
 
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
@@ -62,7 +62,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
         initViews();
 
         // SharedPreferences initialization
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         // Set onClick listener
         btnRegister.setOnClickListener(this);
@@ -141,30 +140,41 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                         // Sign-up success, proceed to save user to the database
                         Log.d("TAG", "createUserWithEmail:success");
                         User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser);
-                        databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
-                            @Override
-                            public void onCompleted(Void object) {
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                                editor.putString("email", email);
-                                editor.putString("password", password);
-                                editor.commit();
+                        SharedPreferencesUtil.saveUser(Register.this, newUser);
 
 
-                                if (TypeUser.equals("מאמן")) {
-                                    // Create a new Coach object with placeholder values for additional fields
+                        if (TypeUser.equals("מאמן")) {
+                            // Create a new Coach object with placeholder values for additional fields
 
-                                    Coach newCoach = new Coach(newUser,"domain",0.0,0);
+                            Coach newCoach = new Coach(newUser, "domain", 0.0, 0);
+
+                            databaseService.createNewCoach(newCoach, new DatabaseService.DatabaseCallback<Void>() {
+                                @Override
+                                public void onCompleted(Void object) {
 
                                     // Redirect to AddDetailsCoach activity, passing the Coach object
                                     Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
                                     go.putExtra("coach", newCoach); // Pass the Coach object to the next activity
                                     startActivity(go);
 
-                                } else if (TypeUser.equals("מתאמן")) {
-                                    // Create a new Trainee object with placeholder values for additional fields
-                                    Trainee newTrain = new Trainee(newUser, 0, 0, 0, null);
+                                }
 
+                                @Override
+                                public void onFailed(Exception e) {
+
+                                }
+                            });
+
+
+                        } else if (TypeUser.equals("מתאמן")) {
+                            // Create a new Trainee object with placeholder values for additional fields
+                            Trainee newTrain = new Trainee(newUser, 0, 0, 0, null);
+
+
+                            databaseService.createNewTrainee(newTrain, new DatabaseService.DatabaseCallback<Void>() {
+                                @Override
+                                public void onCompleted(Void object) {
                                     // Redirect to AddDetailsTrainee activity, passing the Trainee object
                                     Intent go = new Intent(getApplicationContext(), AddDetailsTrainee.class);
                                     go.putExtra("trainee", newTrain); // Pass the Trainee object to the next activity
@@ -172,15 +182,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                                 }
 
 
+                                @Override
+                                public void onFailed(Exception e) {
 
-                            }
+                                }
+                            });
 
-                            @Override
-                            public void onFailed(Exception e) {
-                                // Handle failure
-                            }
-                        });
+
+                        }
                     }
+
+
 
                     @Override
                     public void onFailed(Exception e) {

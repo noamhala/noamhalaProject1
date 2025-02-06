@@ -92,8 +92,17 @@ DatabaseService {
     }
 
     // Public method to get a user from the database by ID
-    public void getUser( @NotNull final DatabaseCallback<User> callback) {
+    public void getUser(String uid, @NotNull final DatabaseCallback<User> callback) {
         getData("users/", User.class, callback);
+    }
+
+    // Public method to get a user from the database by ID
+    // Public method to get a user from the database by ID
+    public void getCoach(String uid, @NotNull final DatabaseCallback<Coach> callback) {
+        getData("coaches/"+uid, Coach.class, callback);
+    }
+    public void getTrainee(String uid, @NotNull final DatabaseCallback<Trainee> callback) {
+        getData("trainees/" +uid, Trainee.class, callback);
     }
 
     public void getCoaches(@NotNull final DatabaseCallback<List<Coach>> callback) {

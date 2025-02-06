@@ -8,6 +8,10 @@ public class Trainee extends User implements Serializable {
     int age;
 
     User myCoach;
+
+    public Trainee() {
+    }
+
     public Trainee(String id, String fname, String lname, String phone, String email, String pass, String gender, String city, double height, double weight, int age, User myCoach) {
         super(id, fname, lname, phone, email, pass, gender, city);
         this.height = height;
