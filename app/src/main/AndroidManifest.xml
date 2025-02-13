@@ -13,6 +13,12 @@
         android:theme="@style/Theme.NoamhalaProject1"
         tools:targetApi="31">
         <activity
+            android:name=".screens.TraineeList"
+            android:exported="false" />
+        <activity
+            android:name=".LIstTrainee"
+            android:exported="false" />
+        <activity
             android:name=".screens.CoachRequest"
             android:exported="false" />
         <activity
@@ -26,9 +32,6 @@
             android:exported="false" />
         <activity
             android:name=".screens.CoachMainPage"
-            android:exported="false" />
-        <activity
-            android:name=".screens.TraineeList"
             android:exported="false" />
         <activity
             android:name=".screens.AddDetailsCoach"

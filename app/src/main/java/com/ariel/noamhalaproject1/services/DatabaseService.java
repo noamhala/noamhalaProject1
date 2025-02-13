@@ -21,6 +21,26 @@ DatabaseService {
     // Tag for logging
     private static final String TAG = "DatabaseService";
 
+    public void getTrainees(@NotNull final DatabaseCallback<List<Trainee>> callback) {
+        readData("trainees/").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+
+            List<Trainee> trainees = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Trainee trainee = dataSnapshot.getValue(Trainee.class);  // Deserialize the trainee
+                Log.d(TAG, "Got trainee: " + trainee);
+                trainees.add(trainee);  // Add to the list
+            });
+
+            callback.onCompleted(trainees);  // Return the list of trainees
+        });
+    }
+
+
     // Callback interface for database operations
     public interface DatabaseCallback<T> {
 

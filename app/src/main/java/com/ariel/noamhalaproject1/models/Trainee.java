@@ -10,6 +10,10 @@ public class Trainee extends User implements Serializable {
     User myCoach;
 
     public Trainee() {
+
+
+
+
     }
 
     public Trainee(String id, String fname, String lname, String phone, String email, String pass, String gender, String city, double height, double weight, int age, User myCoach) {
