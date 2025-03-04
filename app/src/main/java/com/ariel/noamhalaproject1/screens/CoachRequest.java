@@ -1,86 +1,137 @@
 package com.ariel.noamhalaproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
+import com.ariel.noamhalaproject1.models.Coach;
+import com.ariel.noamhalaproject1.models.Trainee;
+import com.ariel.noamhalaproject1.models.User;
+import com.ariel.noamhalaproject1.models.Workout;
+import com.ariel.noamhalaproject1.services.AuthenticationService;
+import com.ariel.noamhalaproject1.services.DatabaseService;
 
-public class CoachRequest extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    // Declare the UI components
-    private EditText etTime, etGoals, etDuration, etLocation;
-    private Spinner spIntensityLevel;
-    private Button btnSubmitRequest;
+public class CoachRequest extends AppCompatActivity implements View.OnClickListener {
+
+    Intent takeit;
+    Coach coach;
+    User trainer;
+
+    Button btnSubmitRequest;
+    EditText etNameCoach, etNameTrainee, etGoals, etLocation;
+    Spinner sphours;
+    DatePicker datePicker;
+    public User user = new User();
+
+    private DatabaseService databaseService;
+    private AuthenticationService authenticationService;
+    private String uid;
+    String goals, hour , date , location ;
+
+    ArrayList<Workout> coachWorkouts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_coach_request);
 
-        // Initialize the UI components
-        etTime = findViewById(R.id.etTime);
-        etGoals = findViewById(R.id.etGoals);
-        etDuration = findViewById(R.id.etDuration);
-        etLocation = findViewById(R.id.etLocation);
-        spIntensityLevel = findViewById(R.id.spIntensityLevel);
-        btnSubmitRequest = findViewById(R.id.btnSubmitRequest);
+        authenticationService = AuthenticationService.getInstance();
+        uid = authenticationService.getCurrentUserId();
+        databaseService = DatabaseService.getInstance();
+        initViews();
 
-        // Handle system window insets (for edge-to-edge support)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+
+        databaseService.getTrainee(uid, new DatabaseService.DatabaseCallback<Trainee>() {
+            @Override
+            public void onCompleted(Trainee object) {
+                User trainee = new User(object);
+                Toast.makeText(CoachRequest.this, "Trainee " + trainee.toString(), Toast.LENGTH_SHORT).show();
+                etNameTrainee.setText(trainee.getFname() + " " + trainee.getLname());
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
         });
 
-        // Submit button click listener
-        btnSubmitRequest.setOnClickListener(v -> handleSubmitRequest());
-    }
+        takeit = getIntent();
+        coach = (Coach) takeit.getSerializableExtra("coach");
 
-    private void handleSubmitRequest() {
-        // Get the data from the input fields
-        String time = etTime.getText().toString().trim();
-        String goals = etGoals.getText().toString().trim();
-        String duration = etDuration.getText().toString().trim();
-        String location = etLocation.getText().toString().trim();
-        String intensityLevel = spIntensityLevel.getSelectedItem().toString();
+        if (coach != null) {
+            etNameCoach.setText(coach.getFname() + " " + coach.getLname());
 
-        // Validate inputs
-        if (time.isEmpty() || goals.isEmpty() || duration.isEmpty() || location.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-        } else {
-            // Here, you can handle sending the data to the server or other functionality
-            // For now, we just display a Toast as a placeholder for the submission
+            databaseService.getCoachWorkouts(coach, new DatabaseService.DatabaseCallback<List<Workout>>() {
+                @Override
+                public void onFailed(Exception e) {
+                }
 
-            String requestDetails = "Time: " + time + "\n" +
-                    "Goals: " + goals + "\n" +
-                    "Duration: " + duration + "\n" +
-                    "Location: " + location + "\n" +
-                    "Intensity: " + intensityLevel;
-
-            // Show the details in a Toast for now (replace with actual network request)
-            Toast.makeText(this, "Request Submitted:\n" + requestDetails, Toast.LENGTH_LONG).show();
-
-            // Optionally, clear the fields after submission
-            clearFields();
+                @Override
+                public void onCompleted(List<Workout> object) {
+                    coachWorkouts.clear();
+                    coachWorkouts.addAll(object);
+                }
+            });
         }
     }
 
-    private void clearFields() {
-        etTime.setText("");
+    private void initViews() {
+        etNameTrainee = findViewById(R.id.etNameTrainee);
+        etNameCoach = findViewById(R.id.etNameCoach);
+        btnSubmitRequest = findViewById(R.id.btnSubmitRequest);
+        etGoals = findViewById(R.id.etGoals);
+        sphours = findViewById(R.id.sphours);
+        etLocation = findViewById(R.id.etLocation);
+        datePicker = findViewById(R.id.datePicker);
+
+        btnSubmitRequest.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String id = DatabaseService.getInstance().generateWorkoutId();
+        Coach selectedCoach = new Coach(coach);
+        String selectedDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+        hour = sphours.getSelectedItem().toString();
+        goals = etGoals.getText().toString();
+        location = etLocation.getText().toString();
+
+        // Create the Workout object
+        Workout workout = new Workout(id, trainer,coach , selectedDate, hour, goals, location);
+
+        databaseService.submitWorkoutRequest(workout, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                Toast.makeText(CoachRequest.this, "Workout Request Submitted Successfully", Toast.LENGTH_SHORT).show();
+                resetFields(); // Reset fields after submission
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(CoachRequest.this, "Failed to submit request", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Reset the fields after submission
+    private void resetFields() {
+        etNameTrainee.setText("");
+        etNameCoach.setText("");
         etGoals.setText("");
-        etDuration.setText("");
         etLocation.setText("");
-        spIntensityLevel.setSelection(0);  // Reset the spinner selection to the first item
+        sphours.setSelection(0);  // Reset spinner to first item
+        datePicker.updateDate(2025, 0, 1);  // Reset to default date (e.g., Jan 1, 2025)
     }
 }

@@ -3,59 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/colorPrimary"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:layoutDirection="rtl"
     tools:context=".screens.AdminPage">
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="145dp"
-        android:layout_height="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="דף מנהל"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="87dp" />
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="72dp" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="310dp"
-        android:layout_height="57dp"
+        android:layout_width="336dp"
+        android:layout_height="51dp"
         android:background="@drawable/rounded_button"
-        android:text="Button"
-
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="245dp" />
+        android:text="רשימת מאמנים"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="225dp" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="309dp"
-        android:layout_height="60dp"
-        android:text="Button"
+        android:layout_width="326dp"
+        android:layout_height="47dp"
         android:background="@drawable/rounded_button"
-
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="335dp" />
+        android:text="רשימת מתאמנים"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="324dp" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="313dp"
-        android:layout_height="63dp"
-        android:text="Button"
+        android:layout_width="329dp"
+        android:layout_height="48dp"
         android:background="@drawable/rounded_button"
+        android:text="היסטורית שיעורים"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="413dp" />
 
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="431dp" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="309dp"
-        android:layout_height="67dp"
-        android:text="Button"
-        android:background="@drawable/rounded_button"
-
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="522dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

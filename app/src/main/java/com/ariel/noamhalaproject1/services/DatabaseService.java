@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
+import com.ariel.noamhalaproject1.models.Workout;  // Make sure to import the Workout model
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,8 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class
-DatabaseService {
+public class DatabaseService {
 
     // Tag for logging
     private static final String TAG = "DatabaseService";
@@ -39,7 +39,6 @@ DatabaseService {
             callback.onCompleted(trainees);  // Return the list of trainees
         });
     }
-
 
     // Callback interface for database operations
     public interface DatabaseCallback<T> {
@@ -83,6 +82,33 @@ DatabaseService {
         });
     }
 
+    // New public method to submit a workout request
+    public void submitWorkoutRequest(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
+        // Generate a new ID for the workout request (if needed)
+        String workoutId = generateNewId("workouts/");
+
+        // Add the workout to the database
+        workout.setId(workoutId); // Set the generated ID
+        writeData("workouts/" + workoutId, workout, new DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                // Handle success
+                if (callback != null) {
+                    callback.onCompleted(object);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                // Handle failure
+                if (callback != null) {
+                    callback.onFailed(e);
+                }
+            }
+        });
+    }
+
+
     // Private method to read data from Firebase at a specific path
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
@@ -106,8 +132,13 @@ DatabaseService {
         return databaseReference.child(path).push().getKey();
     }
 
+    // New method to generate a unique workout ID
+    public String generateWorkoutId() {
+        return generateNewId("workouts");
+    }
+
     // Public method to create a new user in the database
-   public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("users/" + user.getId(), user, callback);
     }
 
@@ -116,15 +147,17 @@ DatabaseService {
         getData("users/", User.class, callback);
     }
 
-    // Public method to get a user from the database by ID
-    // Public method to get a user from the database by ID
+    // Public method to get a coach from the database by ID
     public void getCoach(String uid, @NotNull final DatabaseCallback<Coach> callback) {
         getData("coaches/"+uid, Coach.class, callback);
     }
+
+    // Public method to get a trainee from the database by ID
     public void getTrainee(String uid, @NotNull final DatabaseCallback<Trainee> callback) {
-        getData("trainees/" +uid, Trainee.class, callback);
+        getData("trainees/" + uid, Trainee.class, callback);
     }
 
+    // Public method to get all coaches
     public void getCoaches(@NotNull final DatabaseCallback<List<Coach>> callback) {
         readData("coaches/").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -151,5 +184,24 @@ DatabaseService {
     // Public method to create a new coach in the database
     public void createNewCoach(@NotNull final Coach coach, @Nullable final DatabaseCallback<Void> callback) {
         writeData("coaches/" + coach.getId(), coach, callback);
+    }
+
+    // New public method to fetch workouts for a specific coach
+    public void getCoachWorkouts(Coach coachId, @NotNull final DatabaseCallback<List<Workout>> callback) {
+        readData("workouts/coach/" + coachId).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Workout> workouts = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Workout workout = dataSnapshot.getValue(Workout.class);  // Deserialize the workout
+                Log.d(TAG, "Got workout: " + workout);
+                workouts.add(workout);  // Add to the list
+            });
+
+            callback.onCompleted(workouts);  // Return the list of workouts
+        });
     }
 }

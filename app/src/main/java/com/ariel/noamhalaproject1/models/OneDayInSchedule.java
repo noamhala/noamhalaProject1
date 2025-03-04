@@ -5,12 +5,13 @@ import java.io.Serializable;
 public class OneDayInSchedule implements Serializable {
 
     // Fields for the day and hour of the schedule
-    private String day;
-    private String hour;
+    protected String date;
+    protected String hour;
 
     // Constructor with parameters to initialize day and hour
-    public OneDayInSchedule(String day, String hour) {
-        this.day = day;
+
+    public OneDayInSchedule(String date, String hour) {
+        this.date = date;
         this.hour = hour;
     }
 
@@ -19,14 +20,12 @@ public class OneDayInSchedule implements Serializable {
         // No initialization, fields will be set through setters
     }
 
-    // Getter for 'day'
-    public String getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    // Setter for 'day'
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     // Getter for 'hour'
@@ -39,11 +38,10 @@ public class OneDayInSchedule implements Serializable {
         this.hour = hour;
     }
 
-    // Overriding toString to return a string representation of the object
     @Override
     public String toString() {
         return "OneDayInSchedule{" +
-                "day='" + day + '\'' +
+                "date='" + date + '\'' +
                 ", hour='" + hour + '\'' +
                 '}';
     }
