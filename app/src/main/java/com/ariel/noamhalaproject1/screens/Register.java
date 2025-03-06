@@ -23,9 +23,12 @@
     import com.ariel.noamhalaproject1.models.Coach;
     import com.ariel.noamhalaproject1.models.Trainee;
     import com.ariel.noamhalaproject1.models.User;
+    import com.ariel.noamhalaproject1.models.Workout;
     import com.ariel.noamhalaproject1.services.AuthenticationService;
     import com.ariel.noamhalaproject1.services.DatabaseService;
     import com.ariel.noamhalaproject1.utils.SharedPreferencesUtil;
+
+    import java.util.HashMap;
 
     public class Register extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -139,7 +142,7 @@
                         public void onCompleted(String id) {
                             // Sign-up success, proceed to save user to the database
                             Log.d("TAG", "createUserWithEmail:success");
-                            User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser);
+                            User newUser = new User(id, fname, lname, phone, email, password, city, TypeUser, new HashMap<>());
 
                             SharedPreferencesUtil.saveUser(Register.this, newUser);
 

@@ -20,13 +20,11 @@ import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CoachRequest extends AppCompatActivity implements View.OnClickListener {
 
     Intent takeit;
-    Coach coach;
-    User trainer;
+    Coach coach=null;
 
     Button btnSubmitRequest;
     EditText etNameCoach, etNameTrainee, etGoals, etLocation;
@@ -55,8 +53,7 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
 
         databaseService.getTrainee(uid, new DatabaseService.DatabaseCallback<Trainee>() {
             @Override
-            public void onCompleted(Trainee object) {
-                User trainee = new User(object);
+            public void onCompleted(Trainee trainee) {
                 Toast.makeText(CoachRequest.this, "Trainee " + trainee.toString(), Toast.LENGTH_SHORT).show();
                 etNameTrainee.setText(trainee.getFname() + " " + trainee.getLname());
             }
@@ -72,18 +69,6 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
 
         if (coach != null) {
             etNameCoach.setText(coach.getFname() + " " + coach.getLname());
-
-            databaseService.getCoachWorkouts(coach, new DatabaseService.DatabaseCallback<List<Workout>>() {
-                @Override
-                public void onFailed(Exception e) {
-                }
-
-                @Override
-                public void onCompleted(List<Workout> object) {
-                    coachWorkouts.clear();
-                    coachWorkouts.addAll(object);
-                }
-            });
         }
     }
 
@@ -102,20 +87,31 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String id = DatabaseService.getInstance().generateWorkoutId();
-        Coach selectedCoach = new Coach(coach);
+
         String selectedDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
         hour = sphours.getSelectedItem().toString();
-        goals = etGoals.getText().toString();
-        location = etLocation.getText().toString();
+        goals = etGoals.getText().toString()+"";
+        location = etLocation.getText().toString()+"";
+        String currentTrainee = AuthenticationService.getInstance().getCurrentUserId();
 
         // Create the Workout object
-        Workout workout = new Workout(id, trainer,coach , selectedDate, hour, goals, location);
+        final Workout workout = new Workout(id, currentTrainee, coach.getId(), selectedDate, hour, goals, location);
 
-        databaseService.submitWorkoutRequest(workout, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.submitWorkoutRequestForCoach(workout, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Toast.makeText(CoachRequest.this, "Workout Request Submitted Successfully", Toast.LENGTH_SHORT).show();
-                resetFields(); // Reset fields after submission
+                databaseService.submitWorkoutRequestForTrainee(workout, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        Toast.makeText(CoachRequest.this, "Workout Request Submitted Successfully", Toast.LENGTH_SHORT).show();
+                        resetFields(); // Reset fields after submission
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+                });
             }
 
             @Override

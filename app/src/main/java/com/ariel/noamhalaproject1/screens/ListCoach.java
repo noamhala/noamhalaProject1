@@ -44,8 +44,10 @@ public class ListCoach extends AppCompatActivity {
         databaseService.getCoaches(new DatabaseService.DatabaseCallback<List<Coach>>() {
             @Override
             public void onCompleted(List<Coach> coaches) {
-                coachAdapter = new CoachAdapter(coaches);
+                coachAdapter = new CoachAdapter(coaches,ListCoach.this);
                 rvCoaches.setAdapter(coachAdapter);
+
+
             }
 
             @Override

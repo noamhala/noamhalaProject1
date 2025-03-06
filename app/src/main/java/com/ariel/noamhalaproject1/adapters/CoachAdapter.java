@@ -1,5 +1,7 @@
 package com.ariel.noamhalaproject1.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.Coach;
+import com.ariel.noamhalaproject1.screens.CoachRequest;
+import com.ariel.noamhalaproject1.screens.ListCoach;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +24,24 @@ import java.util.List;
 public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHolder> implements Filterable {
     private List<Coach> coaches;
     private List<Coach> coachesFull; // List for unfiltered data
+    private Context context;
 
     public CoachAdapter(List<Coach> coaches) {
         this.coaches = coaches;
         this.coachesFull = new ArrayList<>(coaches); // Copy of the full list
+    }
+
+    public CoachAdapter(List<Coach> coaches, List<Coach> coachesFull, Context context) {
+        this.coaches = coaches;
+        this.coachesFull = coachesFull;
+        this.context = context;
+    }
+
+    public CoachAdapter(List<Coach> coaches, Context context) {
+
+        this.coaches = coaches;
+
+        this.context = context;
     }
 
     @NonNull
@@ -102,6 +120,9 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHol
             TxtExperience = view.findViewById(R.id.TxtExperience);
             txtPrice = view.findViewById(R.id.txtPrice);
             txtPhoneNumber = view.findViewById(R.id.txtPhoneNumber);
+
+
+
         }
 
         public void bind(Coach coach) {
@@ -110,6 +131,15 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHol
             txtPrice.setText(coach.getPrice() + " ₪");
             txtPhoneNumber.setText(coach.getPhone());
             TxtExperience.setText(coach.getExperience() + " years");
+            // הוספת לחיצה על כל מוצר כדי להוביל לדף המידע של המוצר
+            itemView.setOnClickListener(v -> {
+             //   Coach coach = ןא.get(getAdapterPosition());  // מקבל את המוצר שנלחץ
+
+                Intent intent = new Intent(context, CoachRequest.class);
+                intent.putExtra("coach", coach); //
+                context.startActivity(intent);
+            });
+
         }
     }
 }

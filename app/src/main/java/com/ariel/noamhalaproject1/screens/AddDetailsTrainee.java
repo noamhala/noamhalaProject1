@@ -89,9 +89,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
             return;
         }
 
-        // Assuming we have the user's coach (this can be passed from the previous activity or inferred)
-        User myCoach = getCoach();  // You need to implement or get this User object
-
         // Create a Trainee object
        // Trainee trainee = new Trainee(weight, height, age, myCoach);
 
@@ -108,12 +105,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
         // Example of transitioning to another screen after successful registration
         Intent intent = new Intent(AddDetailsTrainee.this, MainActivity.class);  // Replace with your desired activity
         startActivity(intent);
-    }
-
-    // You can implement this method to retrieve the actual coach, possibly from previous activity's intent or shared preferences
-    private User getCoach() {
-        // Placeholder method to simulate getting the coach, you should pass this data when necessary
-        return new User("coach_id", "Coach", "Name", "123456789", "coach@example.com", "password", "Male", "City");
     }
 
     private void registerTrainee() {

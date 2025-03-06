@@ -28,7 +28,7 @@ public class TraineeMainPage extends AppCompatActivity {
 
     public void goListCoach(View view) {
         // Create an Intent to go to the Register activity
-        Intent go = new Intent(getApplicationContext(), CoachRequest.class);
+        Intent go = new Intent(getApplicationContext(), ListCoach.class);
 
         // Start the Register activity
         startActivity(go);

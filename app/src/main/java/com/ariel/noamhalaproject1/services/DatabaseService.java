@@ -82,33 +82,6 @@ public class DatabaseService {
         });
     }
 
-    // New public method to submit a workout request
-    public void submitWorkoutRequest(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
-        // Generate a new ID for the workout request (if needed)
-        String workoutId = generateNewId("workouts/");
-
-        // Add the workout to the database
-        workout.setId(workoutId); // Set the generated ID
-        writeData("workouts/" + workoutId, workout, new DatabaseCallback<Void>() {
-            @Override
-            public void onCompleted(Void object) {
-                // Handle success
-                if (callback != null) {
-                    callback.onCompleted(object);
-                }
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                // Handle failure
-                if (callback != null) {
-                    callback.onFailed(e);
-                }
-            }
-        });
-    }
-
-
     // Private method to read data from Firebase at a specific path
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
@@ -203,5 +176,15 @@ public class DatabaseService {
 
             callback.onCompleted(workouts);  // Return the list of workouts
         });
+    }
+
+    // New public method to submit a workout request
+    public void submitWorkoutRequestForCoach(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("coaches/"+workout.getCoachId()+  "/workouts/" + workout.getId(), workout, callback);
+    }
+
+    // New public method to submit a workout request
+    public void submitWorkoutRequestForTrainee(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("trainees/"+workout.getTraineeId()+  "/workouts/" + workout.getId(), workout, callback);
     }
 }

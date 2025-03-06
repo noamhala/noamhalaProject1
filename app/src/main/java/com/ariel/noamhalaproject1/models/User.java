@@ -1,32 +1,15 @@
 package com.ariel.noamhalaproject1.models;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class User implements Serializable {
     // Fields for the User class
     String id, fname, lname, phone, email, password, city, typeUser;
 
-    public User(String id, String fname, String lname, String phone, String email, String password, String city, String typeUser) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.city = city;
-        this.typeUser = typeUser;
-    }
+    Map<String, Workout> workouts;
 
-    // Constructor with mandatory parameters (id, fname, lname, phone, email, and typeUser)
-    public User(String id, String fname, String lname, String phone, String email, String typeUser) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
-        this.password = "";  // Default empty password
-        this.city = "";      // Default empty city
-        this.typeUser = typeUser;
+    public User() {
     }
 
     public User(User other) {
@@ -38,14 +21,21 @@ public class User implements Serializable {
         this.password = other.password;
         this.city = other.city;
         this.typeUser = other.typeUser;
+        this.workouts = other.workouts;
     }
 
-    // Default constructor
-    public User() {
+    public User(String id, String fname, String lname, String phone, String email, String password, String city, String typeUser, Map<String, Workout> workouts) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.city = city;
+        this.typeUser = typeUser;
+        this.workouts = workouts;
     }
 
-
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -110,7 +100,13 @@ public class User implements Serializable {
         this.typeUser = typeUser;
     }
 
+    public Map<String, Workout> getWorkouts() {
+        return workouts;
+    }
 
+    public void setWorkouts(Map<String, Workout> workouts) {
+        this.workouts = workouts;
+    }
 
     @Override
     public String toString() {
@@ -123,6 +119,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
                 ", typeUser='" + typeUser + '\'' +
+                ", workouts=" + workouts +
                 '}';
     }
 }

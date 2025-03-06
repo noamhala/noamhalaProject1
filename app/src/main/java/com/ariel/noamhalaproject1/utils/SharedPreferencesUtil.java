@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ariel.noamhalaproject1.models.User;
+import com.ariel.noamhalaproject1.models.Workout;
+import com.google.gson.Gson;
 
 
 /// Utility class for shared preferences operations
@@ -104,14 +106,8 @@ public class SharedPreferencesUtil {
     public static void saveUser(Context context, User user) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("uid", user.getId());
-        editor.putString("email", user.getEmail());
-        editor.putString("password", user.getPassword());
-        editor.putString("fName", user.getFname());
-        editor.putString("lName", user.getLname());
-        editor.putString("phone", user.getPhone());
-        editor.putString("city",user.getCity());
-        editor.putString("typeUser", user.getTypeUser());
+        Gson gson = new Gson();
+        editor.putString("user", gson.toJson(user));
         editor.apply();
     }
 
@@ -126,17 +122,9 @@ public class SharedPreferencesUtil {
         if (!isUserLoggedIn(context)) {
             return null;
         }
-        String uid = sharedPreferences.getString("uid", "");
-        String email = sharedPreferences.getString("email", "");
-        String password = sharedPreferences.getString("password", "");
-        String fName = sharedPreferences.getString("fName", "");
-        String lName = sharedPreferences.getString("lName", "");
-        String phone = sharedPreferences.getString("phone", "");
-        String city = sharedPreferences.getString("city", "");
-
-
-        String typeUser = sharedPreferences.getString("typeUser", "");
-        return new User(uid, fName,lName,phone,email, password, city, typeUser);
+        Gson gson = new Gson();
+        User user = gson.fromJson(sharedPreferences.getString("user", null), User.class);
+        return user;
     }
 
     /// Sign out the user by removing user data from shared preferences
@@ -144,13 +132,7 @@ public class SharedPreferencesUtil {
     public static void signOutUser(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("uid");
-        editor.remove("email");
-        editor.remove("password");
-        editor.remove("fName");
-        editor.remove("lName");
-        editor.remove("phone");
-
+        editor.remove("user");
         editor.apply();
     }
 
@@ -159,7 +141,7 @@ public class SharedPreferencesUtil {
     /// @return true if the user is logged in, false otherwise
     /// @see #contains(Context, String)
     public static boolean isUserLoggedIn(Context context) {
-        return contains(context, "uid");
+        return contains(context, "user");
     }
 
 

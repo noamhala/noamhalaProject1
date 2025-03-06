@@ -5,25 +5,26 @@ import java.io.Serializable;
 public class Workout implements Serializable {
 
     protected String id;           // Unique identifier for the workout
-    protected User trainee;        // The trainee participating in the workout
-    protected Coach coach;         // The coach leading the workout
+    protected String traineeId;        // The trainee participating in the workout
+    protected String coachId;         // The coach leading the workout
     protected String date;         // Date of the workout (e.g., "2025-02-27")
     protected String hour;         // Time of the workout (e.g., "14:00")
     protected String goals;        // The goals for the workout (e.g., "Build muscle", "Improve endurance")
     protected String location;     // The location of the workout (e.g., "Gym", "Outdoor")
 
-    // Constructor to initialize a Workout object
-    public Workout(String id, User trainee, Coach coach, String date, String hour, String goals, String location) {
+    public Workout() {
+    }
+
+    public Workout(String id, String traineeId, String coachId, String date, String hour, String goals, String location) {
         this.id = id;
-        this.trainee = trainee;
-        this.coach = coach;
+        this.traineeId = traineeId;
+        this.coachId = coachId;
         this.date = date;
         this.hour = hour;
         this.goals = goals;
         this.location = location;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -32,20 +33,20 @@ public class Workout implements Serializable {
         this.id = id;
     }
 
-    public User getTrainee() {
-        return trainee;
+    public String getTraineeId() {
+        return traineeId;
     }
 
-    public void setTrainee(User trainee) {
-        this.trainee = trainee;
+    public void setTraineeId(String traineeId) {
+        this.traineeId = traineeId;
     }
 
-    public Coach getCoach() {
-        return coach;
+    public String getCoachId() {
+        return coachId;
     }
 
-    public void setCoach(Coach coach) {
-        this.coach = coach;
+    public void setCoachId(String coachId) {
+        this.coachId = coachId;
     }
 
     public String getDate() {
@@ -84,8 +85,8 @@ public class Workout implements Serializable {
     public String toString() {
         return "Workout{" +
                 "id='" + id + '\'' +
-                ", trainee=" + trainee +
-                ", coach=" + coach +
+                ", traineeId='" + traineeId + '\'' +
+                ", coachId='" + coachId + '\'' +
                 ", date='" + date + '\'' +
                 ", hour='" + hour + '\'' +
                 ", goals='" + goals + '\'' +

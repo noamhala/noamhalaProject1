@@ -7,25 +7,6 @@ public class Coach extends User implements Serializable {
     protected double price;    // Coaching price
     protected int experience;  // Number of years of experience
 
-    // Constructor with all parameters
-    public Coach(String id, String fname, String lname, String phone, String email, String pass,
-                 String gender, String city, String domain, int experience, double price) {
-        super(id, fname, lname, phone, email, pass, gender, city); // Passing to the superclass constructor
-        this.domain = domain;
-        this.experience = experience;
-        this.price = price;
-    }
-
-
-
-    // Copy constructor
-    public Coach(Coach coach) {
-        super(coach);
-
-        this.domain = coach.getDomain();
-        this.experience = coach.getExperience();
-        this.price = coach.getPrice();
-    }
 
     // Constructor to initialize only domain, experience, and price
     public Coach(User user, String domain, double price, int experience) {
