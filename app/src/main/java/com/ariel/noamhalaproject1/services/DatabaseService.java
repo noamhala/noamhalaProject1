@@ -180,11 +180,64 @@ public class DatabaseService {
 
     // New public method to submit a workout request
     public void submitWorkoutRequestForCoach(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("coaches/"+workout.getCoachId()+  "/workouts/" + workout.getId(), workout, callback);
+
+        writeData("coachWorkoutsSchedule/"+workout.getCoachId()+"/"+ workout.getDate().substring(0,4)+"/" +workout.getDate().substring(5,7)+"/"+workout.getDate().substring(8)+"/"+ workout.getId(), workout, callback);
+
+       // writeData("coaches/"+workout.getCoachId()+  "/workouts/" + workout.getId(), workout, callback);
     }
+
+
 
     // New public method to submit a workout request
     public void submitWorkoutRequestForTrainee(Workout workout, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("trainees/"+workout.getTraineeId()+  "/workouts/" + workout.getId(), workout, callback);
+
+        writeData("traineeWorkoutsSchedule/"+workout.getCoachId()+"/"+ workout.getDate().substring(0,4)+"/"+workout.getDate().substring(5,7)+"/" +workout.getDate().substring(8)+"/"+ workout.getId(), workout, callback);
+      //  writeData("trainees/"+workout.getTraineeId()+  "/workouts/" + workout.getId(), workout, callback);
     }
+
+    // Method to retrieve workouts for a coach on a specific date
+  //  public void retrieveWorkoutsForCoach(String coachId, int year, int month, int day,  @NotNull DatabaseCallback<Workout> callback) {
+        // Get reference to the coach's workouts on the specified date
+      //  reference = database.getReference("coachWorkoutsSchedule/" + coachId + "/" + year + "/" + (month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day));
+
+   //    getData(("coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month + "/" + day ), Workout.class, callback);
+
+
+   // }
+
+    // Public method to get all coaches
+    public void retrieveWorkoutsForCoach( String coachId, int year, int month, int day,  @NotNull final DatabaseCallback<List<Workout>> callback) {
+
+        String path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month + "/" + day ;
+
+        if(day>0) {
+
+            path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month ;
+        }
+
+
+        if(month>0) {
+
+            path="coachWorkoutsSchedule/" + coachId + "/" + year ;
+        }
+
+
+
+        readData(path).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Workout> workouts = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Workout workout = dataSnapshot.getValue(Workout.class);
+                Log.d(TAG, "Got coaches: " + workout);
+                workouts.add(workout);
+            });
+
+            callback.onCompleted(workouts);
+        });
+    }
+
 }

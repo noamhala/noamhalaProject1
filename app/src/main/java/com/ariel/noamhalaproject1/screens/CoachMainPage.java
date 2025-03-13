@@ -1,6 +1,8 @@
 package com.ariel.noamhalaproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,5 +24,11 @@ public class CoachMainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void goCoachSchedule(View view) {
+        // Create an Intent to go to the Login activity
+        Intent go = new Intent(getApplicationContext(), GetCoachSchedule.class);
+        startActivity(go);
     }
 }

@@ -87,8 +87,15 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String id = DatabaseService.getInstance().generateWorkoutId();
+       String zero="", zero2="";
 
-        String selectedDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+        if((datePicker.getMonth() + 1)<10)
+            zero="0";
+        if((datePicker.getDayOfMonth() )<10)
+                zero2="0";
+
+
+         String selectedDate = datePicker.getYear() + "/" + zero+ (datePicker.getMonth() + 1) + "/" +zero2+ datePicker.getDayOfMonth();
         hour = sphours.getSelectedItem().toString();
         goals = etGoals.getText().toString()+"";
         location = etLocation.getText().toString()+"";
@@ -105,6 +112,9 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
                     public void onCompleted(Void object) {
                         Toast.makeText(CoachRequest.this, "Workout Request Submitted Successfully", Toast.LENGTH_SHORT).show();
                         resetFields(); // Reset fields after submission
+                        Intent go=new Intent(CoachRequest.this,TraineeMainPage.class);
+                        startActivity(go);
+
                     }
 
                     @Override
