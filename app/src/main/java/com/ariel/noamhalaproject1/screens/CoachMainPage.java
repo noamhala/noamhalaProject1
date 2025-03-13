@@ -26,9 +26,10 @@ public class CoachMainPage extends AppCompatActivity {
         });
     }
 
-    public void goCoachSchedule(View view) {
-        // Create an Intent to go to the Login activity
-        Intent go = new Intent(getApplicationContext(), GetCoachSchedule.class);
+
+
+    public void goCoachSchedule2(View view) {
+        Intent go = new Intent(CoachMainPage.this, GetCoachSchedule.class);
         startActivity(go);
     }
 }

@@ -208,19 +208,19 @@ public class DatabaseService {
     // Public method to get all coaches
     public void retrieveWorkoutsForCoach( String coachId, int year, int month, int day,  @NotNull final DatabaseCallback<List<Workout>> callback) {
 
-        String path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month + "/" + day ;
+        String path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month + "/" +"0"+ day ;
 
-        if(day>0) {
+        if(day==0) {
 
             path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month ;
         }
 
 
-        if(month>0) {
+        if(month==0) {
 
-            path="coachWorkoutsSchedule/" + coachId + "/" + year ;
+          path="coachWorkoutsSchedule/" + coachId + "/" + year ;
         }
-
+        Log.d(TAG, "pATH data"+ path);
 
 
         readData(path).get().addOnCompleteListener(task -> {

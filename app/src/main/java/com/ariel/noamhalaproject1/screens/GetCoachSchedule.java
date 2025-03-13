@@ -51,29 +51,25 @@ public class GetCoachSchedule extends AppCompatActivity {
         adpSearch1 = new WorkoutAdapter(this, workouts);  // Updated adapter initialization
         lvSearch1.setAdapter(adpSearch1);
 
-        databaseService.retrieveWorkoutsForCoach(uid, 2025, 0, 0, new DatabaseService.DatabaseCallback<List<Workout>>() {
+        databaseService.retrieveWorkoutsForCoach(uid, 2025, 1, 1, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
             public void onCompleted(List<Workout> object) {
                 Log.d("GetCoachSchedule", "Retrieved workouts: " + object.size());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+
+
                         workouts.addAll(object);
                         adpSearch1.notifyDataSetChanged();
-                    }
-                });
+
+
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e("GetCoachSchedule", "Error fetching workouts", e);
+                Log.e("GetCoachScheduleError", "Error fetching workouts", e);
                 // Show error message to the user
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+
                         Toast.makeText(GetCoachSchedule.this, "Failed to fetch workouts", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
             }
         });
     }
