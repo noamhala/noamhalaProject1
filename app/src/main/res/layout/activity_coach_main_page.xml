@@ -59,6 +59,7 @@
         android:background="@drawable/rounded_button"
         android:gravity="center"
         android:text="פרטי חשבון"
+        android:onClick="goProfileUserer"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

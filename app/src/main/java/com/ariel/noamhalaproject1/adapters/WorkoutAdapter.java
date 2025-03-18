@@ -10,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ariel.noamhalaproject1.R;
+import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.Workout;
+import com.ariel.noamhalaproject1.services.DatabaseService;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
     List<Workout> objects;
 
     public WorkoutAdapter(Context context, List<Workout> objects) {
-        super(context, 0, objects);
+        super(context, 0,0, objects);
         this.context = context;
         this.objects = objects;
     }
@@ -41,7 +43,19 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         tvHour.setText(temp.getHour());
         tvDate.setText(temp.getDate());
         tvLocation.setText(temp.getLocation());
-        tvTrainee.setText(temp.getTraineeId());
+
+
+        DatabaseService.getInstance().getTrainee(temp.getTraineeId(), new DatabaseService.DatabaseCallback<Trainee>() {
+            @Override
+            public void onCompleted(Trainee object) {
+                tvTrainee.setText(object.getFname());
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
 
         return view;
     }

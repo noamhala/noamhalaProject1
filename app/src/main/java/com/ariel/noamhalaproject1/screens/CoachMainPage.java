@@ -32,4 +32,9 @@ public class CoachMainPage extends AppCompatActivity {
         Intent go = new Intent(CoachMainPage.this, GetCoachSchedule.class);
         startActivity(go);
     }
+
+    public void goProfileUserer(View view) {
+        Intent go = new Intent(CoachMainPage.this, ProfileUser.class);
+        startActivity(go);
+    }
 }

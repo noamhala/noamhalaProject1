@@ -2,14 +2,18 @@ package com.ariel.noamhalaproject1.services;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.models.Workout;  // Make sure to import the Workout model
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -159,6 +163,10 @@ public class DatabaseService {
         writeData("coaches/" + coach.getId(), coach, callback);
     }
 
+    public void updateUser(User currentUser, DatabaseCallback<Void> databaseCallback) {
+        createNewUser(currentUser, databaseCallback);
+    }
+
     // New public method to fetch workouts for a specific coach
     public void getCoachWorkouts(Coach coachId, @NotNull final DatabaseCallback<List<Workout>> callback) {
         readData("workouts/coach/" + coachId).get().addOnCompleteListener(task -> {
@@ -206,19 +214,19 @@ public class DatabaseService {
    // }
 
     // Public method to get all coaches
-    public void retrieveWorkoutsForCoach( String coachId, int year, int month, int day,  @NotNull final DatabaseCallback<List<Workout>> callback) {
+    public void retrieveWorkoutsForCoach( String coachId, String year, String month, String day,  @NotNull final DatabaseCallback<List<Workout>> callback) {
 
-        String path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month + "/" +"0"+ day ;
+        String path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + "0"+ month + "/" +"0"+ day ;
 
-        if(day==0) {
+        if(day.isEmpty()) {
 
-            path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" + month ;
+            path="coachWorkoutsSchedule/" + coachId + "/" + year + "/" +  "0"+month ;
         }
 
 
-        if(month==0) {
+        if(month.isEmpty()) {
 
-          path="coachWorkoutsSchedule/" + coachId + "/" + year ;
+            path="coachWorkoutsSchedule/" + coachId + "/" + year ;
         }
         Log.d(TAG, "pATH data"+ path);
 
@@ -239,5 +247,62 @@ public class DatabaseService {
             callback.onCompleted(workouts);
         });
     }
+
+    public void getWorkoutsForCoach( String coachId,   @NotNull final DatabaseCallback<List<Workout>> callback) {
+
+        String path="coachWorkoutsSchedule/" + coachId;
+        DatabaseReference myRef=  readData(path);
+
+
+
+
+
+        List<Workout> workouts = new ArrayList<>();
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Log.d("postSnapshot", "num  is: " + postSnapshot.getKey());
+
+                    for (DataSnapshot dm : postSnapshot.getChildren()) {
+
+                        Log.d("dm", "num  is: " + dm.getKey());
+                        for (DataSnapshot dd : dm.getChildren()) {
+
+
+                            Log.d("dd", "num  is: " + dd.getKey());
+                            for (DataSnapshot value : dd.getChildren()) {
+                                Workout workout = value.getValue(Workout.class);
+
+
+                                workouts.add(workout);
+                                Log.d("workout", "Value is: " + workout);
+                            }
+
+
+                        }
+                }
+
+            }
+
+
+                callback.onCompleted(workouts);
+
+        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+
+            }
+        });
+
+
+    }
+
 
 }

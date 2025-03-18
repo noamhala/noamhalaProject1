@@ -33,4 +33,11 @@ public class TraineeMainPage extends AppCompatActivity {
         // Start the Register activity
         startActivity(go);
     }
+
+    public void goProfileUser(View view) {
+        Intent go = new Intent(getApplicationContext(), ProfileUser.class);
+
+        // Start the Register activity
+        startActivity(go);
+    }
 }

@@ -51,16 +51,14 @@ public class GetCoachSchedule extends AppCompatActivity {
         adpSearch1 = new WorkoutAdapter(this, workouts);  // Updated adapter initialization
         lvSearch1.setAdapter(adpSearch1);
 
-        databaseService.retrieveWorkoutsForCoach(uid, 2025, 1, 1, new DatabaseService.DatabaseCallback<List<Workout>>() {
+        databaseService.getWorkoutsForCoach(uid,  new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
             public void onCompleted(List<Workout> object) {
                 Log.d("GetCoachSchedule", "Retrieved workouts: " + object.size());
-
-
                         workouts.addAll(object);
                         adpSearch1.notifyDataSetChanged();
 
-
+                Log.e("worloutList", workouts.toString());
             }
 
             @Override

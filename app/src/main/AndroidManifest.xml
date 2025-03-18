@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NoamhalaProject1"
         tools:targetApi="31">
         <activity
+            android:name=".screens.ProfileUser"
+            android:exported="false" />
+        <activity
             android:name=".screens.GetCoachSchedule"
             android:exported="false" />
         <activity
@@ -21,9 +24,7 @@
         <activity
             android:name=".screens.TraineeList"
             android:exported="false" />
-        <activity
-            android:name=".LIstTrainee"
-            android:exported="false" />
+
         <activity
             android:name=".screens.CoachRequest"
             android:exported="false" />
@@ -44,12 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".screens.AddDetailsTrainee"
-            android:exported="false" />
-        <activity
-            android:name=".screens.LIstSchedule"
-            android:exported="false" />
-        <activity
-            android:name=".screens.AddItem"
             android:exported="false" />
         <activity
             android:name=".screens.AdminPage"
