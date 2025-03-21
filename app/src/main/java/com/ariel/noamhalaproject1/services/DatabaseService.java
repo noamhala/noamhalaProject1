@@ -121,8 +121,27 @@ public class DatabaseService {
 
     // Public method to get a user from the database by ID
     public void getUser(String uid, @NotNull final DatabaseCallback<User> callback) {
-        getData("users/", User.class, callback);
+        // First, try fetching the user as a coach
+        getData("coaches/" + uid, User.class, new DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user) {
+                if (user != null) {
+                    callback.onCompleted(user);  // If the user is found as a coach, return it
+                } else {
+                    // If the coach is not found, try fetching the user as a trainee
+                    getData("trainees/" + uid, User.class, callback);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                // If error happens while fetching the coach, try fetching the trainee
+                getData("trainees/" + uid, User.class, callback);
+            }
+        });
     }
+
+
 
     // Public method to get a coach from the database by ID
     public void getCoach(String uid, @NotNull final DatabaseCallback<Coach> callback) {

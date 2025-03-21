@@ -58,7 +58,7 @@ public class GetCoachSchedule extends AppCompatActivity {
                         workouts.addAll(object);
                         adpSearch1.notifyDataSetChanged();
 
-                Log.e("worloutList", workouts.toString());
+                Log.e("workoutList", workouts.toString());
             }
 
             @Override
