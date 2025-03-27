@@ -16,6 +16,8 @@
         android:layout_marginBottom="86dp"
         android:gravity="center"
         android:text="Welcome Coach"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"

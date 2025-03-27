@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".screens.GetCoachSchedule">
+    tools:context=".screens.GetTraineeSchedule">
 
     <!-- Title TextView -->
     <TextView
@@ -23,11 +23,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lvCoachSchedule" />
+        app:layout_constraintBottom_toTopOf="@+id/lvTraineeSchedule" />
 
     <!-- ListView for Coach Schedule -->
     <ListView
-        android:id="@+id/lvCoachSchedule"
+        android:id="@+id/lvTraineeSchedule"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"

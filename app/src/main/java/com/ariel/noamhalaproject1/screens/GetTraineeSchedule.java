@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.adapters.WorkoutAdapter;
-import com.ariel.noamhalaproject1.models.Coach;
+import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.Workout;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
@@ -21,57 +21,52 @@ import com.ariel.noamhalaproject1.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetCoachSchedule extends AppCompatActivity {
+public class GetTraineeSchedule extends AppCompatActivity {
 
-    ListView lvCoachSchedule;
+    ListView lvTraineeSchedule;
     ArrayList<Workout> workouts = new ArrayList<>();
-    WorkoutAdapter workoutAdapter;
+    WorkoutAdapter adpTraineeSchedule;
 
     private DatabaseService databaseService;
     private AuthenticationService authenticationService;
     String uid;
-    Coach coach = null;
+    Trainee trainee = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_get_coach_schedule);  // Make sure this layout is the one we finalized
-
-        // Handle system bar insets for edge-to-edge display
+        setContentView(R.layout.activity_get_trainee_schedule);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize services
         databaseService = DatabaseService.getInstance();
         authenticationService = AuthenticationService.getInstance();
         uid = authenticationService.getCurrentUserId();
 
-        // Setup ListView
-        lvCoachSchedule = findViewById(R.id.lvCoachSchedule);
-        workoutAdapter = new WorkoutAdapter(this, workouts); // WorkoutAdapter will use the finalized XML layout
-        lvCoachSchedule.setAdapter(workoutAdapter);
+        lvTraineeSchedule = findViewById(R.id.lvTraineeSchedule);  // Ensure this matches the ListView ID in XML
+        adpTraineeSchedule = new WorkoutAdapter(this, workouts);  // Pass the list of workouts to the adapter
+        lvTraineeSchedule.setAdapter(adpTraineeSchedule);
 
-        // Fetch workouts for the coach
-        databaseService.getWorkoutsForCoach(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
+        // Fetch the workouts for the trainee
+        databaseService.getWorkoutsForTrainee(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
             public void onCompleted(List<Workout> object) {
-                Log.d("GetCoachSchedule", "Retrieved workouts: " + object.size());
-
-                // Add workouts to the list and update the adapter
-                workouts.addAll(object);
-                workoutAdapter.notifyDataSetChanged();
+                Log.d("GetTraineeSchedule", "Retrieved workouts: " + object.size());
+                workouts.addAll(object);  // Add the retrieved workouts to the list
+                adpTraineeSchedule.notifyDataSetChanged();  // Notify the adapter to update the ListView
 
                 Log.e("workoutList", workouts.toString());
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e("GetCoachScheduleError", "Error fetching workouts", e);
-                Toast.makeText(GetCoachSchedule.this, "Failed to fetch workouts", Toast.LENGTH_SHORT).show();
+                Log.e("GetTraineeScheduleError", "Error fetching workouts", e);
+                // Show error message to the user
+                Toast.makeText(GetTraineeSchedule.this, "Failed to fetch workouts", Toast.LENGTH_SHORT).show();
             }
         });
     }

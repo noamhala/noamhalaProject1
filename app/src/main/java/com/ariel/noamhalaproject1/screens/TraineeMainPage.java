@@ -29,14 +29,16 @@ public class TraineeMainPage extends AppCompatActivity {
     public void goListCoach(View view) {
         // Create an Intent to go to the Register activity
         Intent go = new Intent(getApplicationContext(), ListCoach.class);
-
         // Start the Register activity
         startActivity(go);
     }
-
     public void goProfileUser(View view) {
         Intent go = new Intent(getApplicationContext(), ProfileUser.class);
-
+        // Start the Register activity
+        startActivity(go);
+    }
+    public void goTraineeSchedule(View view) {
+        Intent go = new Intent(getApplicationContext(), GetTraineeSchedule.class);
         // Start the Register activity
         startActivity(go);
     }

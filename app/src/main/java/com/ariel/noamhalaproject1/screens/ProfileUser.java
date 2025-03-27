@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.User;
+import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
 
 public class ProfileUser extends AppCompatActivity {
@@ -34,8 +35,11 @@ public class ProfileUser extends AppCompatActivity {
         // Initialize database service
         databaseService = DatabaseService.getInstance();
 
+        AuthenticationService.getInstance();
+
         // Get user ID from the Intent
-        userId = getIntent().getStringExtra("userId");
+        //userId = getIntent().getStringExtra("userId");
+        userId = AuthenticationService.getInstance().getCurrentUserId();
 
         if (userId == null || userId.isEmpty()) {
             // Handle invalid user ID case
