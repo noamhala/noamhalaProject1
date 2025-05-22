@@ -7,60 +7,79 @@
     android:padding="16dp"
     tools:context=".screens.GetTraineeSchedule">
 
-    <!-- Coach Name TextView -->
-<TextView
-android:id="@+id/tvCoach"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="Coach Name"
-android:textSize="18sp"
-android:textColor="#333333"
-android:fontFamily="sans-serif-medium"
-android:layout_marginBottom="8dp"
-app:layout_constraintTop_toTopOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toStartOf="@id/tvTrainee"
-app:layout_constraintBottom_toTopOf="@id/tvDate" />
+    <!-- Coach Name -->
+    <TextView
+        android:id="@+id/tvCoach"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Coach Name"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Trainee Name TextView -->
-<TextView
-android:id="@+id/tvTrainee"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="Trainee Name"
-android:textSize="18sp"
-android:textColor="#333333"
-android:fontFamily="sans-serif-medium"
-android:layout_marginBottom="8dp"
-app:layout_constraintTop_toTopOf="parent"
-app:layout_constraintStart_toEndOf="@id/tvCoach"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintBottom_toTopOf="@id/tvDate" />
+    <!-- Trainee Name -->
+    <TextView
+        android:id="@+id/tvTrainee"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Trainee Name"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvCoach"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Date TextView -->
-<TextView
-android:id="@+id/tvDate"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="01/01/2025"
-android:textSize="16sp"
-android:textColor="#555555"
-app:layout_constraintTop_toBottomOf="@id/tvCoach"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-android:layout_marginTop="8dp"/>
+    <!-- Date -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="95dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:text="01/01/2025"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_item_workout_accept"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCoach" />
 
-    <!-- Hour TextView -->
-<TextView
-android:id="@+id/tvHour"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="10:00 AM"
-android:textSize="16sp"
-android:textColor="#555555"
-app:layout_constraintTop_toBottomOf="@id/tvDate"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-android:layout_marginTop="8dp"/>
+    <!-- Button 6 -->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Hour -->
+    <Button
+        android:id="@+id/btn_item_workout_accept"
+        android:layout_width="115dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:text="ACCEPT"
+        app:layout_constraintStart_toEndOf="@id/tvDate"
+        app:layout_constraintTop_toBottomOf="@id/tvCoach" />
+
+    <TextView
+        android:id="@+id/tvHour"
+        android:layout_width="97dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:text="10:00 AM"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+    <!-- Button 13 -->
+
+    <!-- Button 14 -->
+    <Button
+        android:id="@+id/btn_item_workout_decline"
+        android:layout_width="118dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="DECLINE"
+        app:layout_constraintStart_toEndOf="@id/tvHour"
+        app:layout_constraintTop_toBottomOf="@id/btn_item_workout_accept" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

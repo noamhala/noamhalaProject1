@@ -59,7 +59,6 @@ public class Coach extends User implements Serializable {
         super.setPassword(pass);  // Accessing the User class's password via setter
     }
 
-
     @Override
     public String toString() {
         return "Coach{" +

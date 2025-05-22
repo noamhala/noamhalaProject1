@@ -9,7 +9,6 @@ public class OneDayInSchedule implements Serializable {
     protected String hour;
 
     // Constructor with parameters to initialize day and hour
-
     public OneDayInSchedule(String date, String hour) {
         this.date = date;
         this.hour = hour;

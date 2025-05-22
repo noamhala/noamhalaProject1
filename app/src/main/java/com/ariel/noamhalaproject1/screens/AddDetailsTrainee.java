@@ -78,7 +78,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-
         try {
             // Convert input to appropriate types
             weight = Double.parseDouble(weightStr);
@@ -88,7 +87,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
             Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Create a Trainee object
        // Trainee trainee = new Trainee(weight, height, age, myCoach);
 
@@ -101,7 +99,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
         // Proceed with storing or using the trainee data (e.g., saving to the database, etc.)
         // For now, we will simply display a Toast and move to another screen
         Toast.makeText(this, "Trainee details saved", Toast.LENGTH_SHORT).show();
-
         // Example of transitioning to another screen after successful registration
         Intent intent = new Intent(AddDetailsTrainee.this, MainActivity.class);  // Replace with your desired activity
         startActivity(intent);
@@ -114,7 +111,6 @@ public class AddDetailsTrainee extends AppCompatActivity {
                 /// call the createNewUser method of the database service
 
                 databaseService.createNewTrainee(currentTrainee, new DatabaseService.DatabaseCallback<Void>() {
-
                     @Override
                     public void onCompleted(Void object) {
                         Log.d(TAG, "onCompleted: User registered successfully");
@@ -139,8 +135,4 @@ public class AddDetailsTrainee extends AppCompatActivity {
                     }
                 });
             }
-
-
-
-
     }

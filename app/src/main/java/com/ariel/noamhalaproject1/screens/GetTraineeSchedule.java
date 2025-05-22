@@ -48,11 +48,32 @@ public class GetTraineeSchedule extends AppCompatActivity {
         uid = authenticationService.getCurrentUserId();
 
         lvTraineeSchedule = findViewById(R.id.lvTraineeSchedule);  // Ensure this matches the ListView ID in XML
-        adpTraineeSchedule = new WorkoutAdapter(this, workouts);  // Pass the list of workouts to the adapter
+        adpTraineeSchedule = new WorkoutAdapter(this, workouts, new WorkoutAdapter.OnItemWorkout() {
+            @Override
+            public boolean isShowAccept() {
+                return false;
+            }
+
+            @Override
+            public boolean isShowReject() {
+                return false;
+            }
+
+            @Override
+            public void onAccept(Workout workout) {}
+
+            @Override
+            public void onReject(Workout workout) {}
+
+            @Override
+            public void onDetails(Workout workout) {
+                // TODO impl
+            }
+        });  // Pass the list of workouts to the adapter
         lvTraineeSchedule.setAdapter(adpTraineeSchedule);
 
         // Fetch the workouts for the trainee
-        databaseService.getWorkoutsForTrainee(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
+        databaseService.getTraineeWorkouts(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
             public void onCompleted(List<Workout> object) {
                 Log.d("GetTraineeSchedule", "Retrieved workouts: " + object.size());

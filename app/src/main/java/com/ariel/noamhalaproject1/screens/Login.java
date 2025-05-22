@@ -41,7 +41,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Coach coach=null;
     private String uid;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,16 +53,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return insets;
         });
 
-
         /// get the instance of the authentication service
         authenticationService = AuthenticationService.getInstance();
         /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
-
         // Initialize views
         initViews();
-
         // Pre-fill saved credentials
         loadSavedCredentials();
     }
@@ -109,16 +105,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onCompleted(String id) {
                 uid=id;
-
                 Log.d(TAG, "onCompleted: User logged in successfully");
                 /// get the user data from the database
-
-
                 databaseService.getTrainee(uid, new DatabaseService.DatabaseCallback<Trainee>() {
                     @Override
                     public void onCompleted(Trainee trainee) {
-                       trainee2=trainee;
 
+                       trainee2=trainee;
                         Log.d(TAG, "onCompleted: User data retrieved successfully");
                         /// save the user data to shared preferences
                        SharedPreferencesUtil.saveUser(Login.this, trainee2);
@@ -130,20 +123,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         if(trainee2!=null)
                              startActivity(mainIntent);
 
-
                         else {
 
                             databaseService.getCoach(uid, new DatabaseService.DatabaseCallback<Coach>() {
-
 
                                 @Override
                                 public void onCompleted(Coach object) {
 
                                     coach=object;
-
                                     Log.d(TAG, "onCompleted: User data retrieved successfully");
                                     /// save the user data to shared preferences
-
                                     SharedPreferencesUtil.saveUser(Login.this, coach);
 
                                     /// Redirect to main activity and clear back stack to prevent user from going back to login screen
@@ -152,8 +141,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(mainIntent);
 
-
-
                                 }
 
                                 @Override
@@ -161,30 +148,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                                 }
                             });
-
-
-
-
                         }
-
                     }
 
                     @Override
                     public void onFailed(Exception e) {
                         trainee2=null;
 
-
                     }
                 });
-
-                }
-
-
-
-
-
-
-
+            }
 
             @Override
             public void onFailed(Exception e) {

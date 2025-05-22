@@ -30,17 +30,13 @@ public class MainActivity extends AppCompatActivity {
     public void goReg(View view) {
         // Create an Intent to go to the Register activity
         Intent go = new Intent(getApplicationContext(), Register.class);
-
         // Start the Register activity
         startActivity(go);
     }
     public void goLogin(View view) {
         // Create an Intent to go to the Login activity
         Intent go = new Intent(getApplicationContext(), Login.class);
-
         // Start the Login activity
-
-
         startActivity(go);
     }
 
@@ -50,10 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public void goListCoach(View view) {
         // Create an Intent to go to the Login activity
         Intent go = new Intent(getApplicationContext(), CoachRequest.class);
-
         // Start the Login activity
-
-
         startActivity(go);
     }
 }

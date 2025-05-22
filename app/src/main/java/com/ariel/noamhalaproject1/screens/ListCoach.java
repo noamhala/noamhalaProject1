@@ -47,7 +47,6 @@ public class ListCoach extends AppCompatActivity {
                 coachAdapter = new CoachAdapter(coaches,ListCoach.this);
                 rvCoaches.setAdapter(coachAdapter);
 
-
             }
 
             @Override

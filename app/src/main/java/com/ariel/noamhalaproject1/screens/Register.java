@@ -130,7 +130,6 @@
                 Toast.makeText(Register.this, "Password is too long", Toast.LENGTH_LONG).show();
                 isValid = false;
             }
-
             if (isValid) {
                 // Check if the selected TypeUser is "Trainer" or "Trainee"
 
@@ -146,35 +145,26 @@
 
                             SharedPreferencesUtil.saveUser(Register.this, newUser);
 
-
                             if (TypeUser.equals("מאמן")) {
                                 // Create a new Coach object with placeholder values for additional fields
 
                                 Coach newCoach = new Coach(newUser, "domain", 0.0, 0);
-
                                 databaseService.createNewCoach(newCoach, new DatabaseService.DatabaseCallback<Void>() {
                                     @Override
                                     public void onCompleted(Void object) {
-
                                         // Redirect to AddDetailsCoach activity, passing the Coach object
                                         Intent go = new Intent(getApplicationContext(), AddDetailsCoach.class);
                                         go.putExtra("coach", newCoach); // Pass the Coach object to the next activity
                                         startActivity(go);
-
                                     }
-
                                     @Override
                                     public void onFailed(Exception e) {
 
                                     }
                                 });
-
-
                             } else if (TypeUser.equals("מתאמן")) {
                                 // Create a new Trainee object with placeholder values for additional fields
                                 Trainee newTrain = new Trainee(newUser, 0, 0, 0, null);
-
-
                                 databaseService.createNewTrainee(newTrain, new DatabaseService.DatabaseCallback<Void>() {
                                     @Override
                                     public void onCompleted(Void object) {
@@ -183,19 +173,13 @@
                                         go.putExtra("trainee", newTrain); // Pass the Trainee object to the next activity
                                         startActivity(go);
                                     }
-
-
                                     @Override
                                     public void onFailed(Exception e) {
 
                                     }
                                 });
-
-
                             }
                         }
-
-
 
                         @Override
                         public void onFailed(Exception e) {
@@ -206,7 +190,6 @@
                         }
                     });
                 }
-
         }
 
         @Override

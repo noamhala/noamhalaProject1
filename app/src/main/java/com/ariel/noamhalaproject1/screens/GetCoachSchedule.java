@@ -52,11 +52,32 @@ public class GetCoachSchedule extends AppCompatActivity {
 
         // Setup ListView
         lvCoachSchedule = findViewById(R.id.lvCoachSchedule);
-        workoutAdapter = new WorkoutAdapter(this, workouts); // WorkoutAdapter will use the finalized XML layout
+        workoutAdapter = new WorkoutAdapter(this, workouts, new WorkoutAdapter.OnItemWorkout() {
+            @Override
+            public boolean isShowAccept() {
+                return false;
+            }
+
+            @Override
+            public boolean isShowReject() {
+                return false;
+            }
+
+            @Override
+            public void onAccept(Workout workout) {}
+
+            @Override
+            public void onReject(Workout workout) {}
+
+            @Override
+            public void onDetails(Workout workout) {
+                // TODO impl
+            }
+        }); // WorkoutAdapter will use the finalized XML layout
         lvCoachSchedule.setAdapter(workoutAdapter);
 
         // Fetch workouts for the coach
-        databaseService.getWorkoutsForCoach(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
+        databaseService.getCoachWorkouts(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
             public void onCompleted(List<Workout> object) {
                 Log.d("GetCoachSchedule", "Retrieved workouts: " + object.size());
