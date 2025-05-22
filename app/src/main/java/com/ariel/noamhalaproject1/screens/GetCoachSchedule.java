@@ -1,5 +1,6 @@
 package com.ariel.noamhalaproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import com.ariel.noamhalaproject1.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class GetCoachSchedule extends AppCompatActivity {
 
@@ -71,7 +73,8 @@ public class GetCoachSchedule extends AppCompatActivity {
 
             @Override
             public void onDetails(Workout workout) {
-                // TODO impl
+                Intent intent = new Intent(GetCoachSchedule.this, DetailsWorkout.class);
+                startActivity(intent);
             }
         }); // WorkoutAdapter will use the finalized XML layout
         lvCoachSchedule.setAdapter(workoutAdapter);
@@ -79,11 +82,12 @@ public class GetCoachSchedule extends AppCompatActivity {
         // Fetch workouts for the coach
         databaseService.getCoachWorkouts(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
-            public void onCompleted(List<Workout> object) {
-                Log.d("GetCoachSchedule", "Retrieved workouts: " + object.size());
+            public void onCompleted(List<Workout> ws) {
+                Log.d("GetCoachSchedule", "Retrieved workouts: " + ws.size());
+                ws.removeIf(workout -> workout.getAccepted() == null || !workout.getAccepted());
 
                 // Add workouts to the list and update the adapter
-                workouts.addAll(object);
+                workouts.addAll(ws);
                 workoutAdapter.notifyDataSetChanged();
 
                 Log.e("workoutList", workouts.toString());

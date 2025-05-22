@@ -1,5 +1,6 @@
 package com.ariel.noamhalaproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -67,7 +68,8 @@ public class GetTraineeSchedule extends AppCompatActivity {
 
             @Override
             public void onDetails(Workout workout) {
-                // TODO impl
+                Intent intent = new Intent(GetTraineeSchedule.this, DetailsWorkout.class);
+                startActivity(intent);
             }
         });  // Pass the list of workouts to the adapter
         lvTraineeSchedule.setAdapter(adpTraineeSchedule);
@@ -75,9 +77,10 @@ public class GetTraineeSchedule extends AppCompatActivity {
         // Fetch the workouts for the trainee
         databaseService.getTraineeWorkouts(uid, new DatabaseService.DatabaseCallback<List<Workout>>() {
             @Override
-            public void onCompleted(List<Workout> object) {
-                Log.d("GetTraineeSchedule", "Retrieved workouts: " + object.size());
-                workouts.addAll(object);  // Add the retrieved workouts to the list
+            public void onCompleted(List<Workout> ws) {
+                Log.d("GetTraineeSchedule", "Retrieved workouts: " + ws.size());
+                ws.removeIf(workout -> workout.getAccepted() == null);
+                workouts.addAll(ws);  // Add the retrieved workouts to the list
                 adpTraineeSchedule.notifyDataSetChanged();  // Notify the adapter to update the ListView
 
                 Log.e("workoutList", workouts.toString());
