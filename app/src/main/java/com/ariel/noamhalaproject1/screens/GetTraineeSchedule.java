@@ -69,6 +69,7 @@ public class GetTraineeSchedule extends AppCompatActivity {
             @Override
             public void onDetails(Workout workout) {
                 Intent intent = new Intent(GetTraineeSchedule.this, DetailsWorkout.class);
+                intent.putExtra("workout", workout);
                 startActivity(intent);
             }
         });  // Pass the list of workouts to the adapter

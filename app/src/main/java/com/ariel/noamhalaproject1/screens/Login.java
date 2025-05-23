@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
 import com.ariel.noamhalaproject1.utils.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -174,7 +177,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 etPassword.requestFocus();
             }
     });
-}
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_about) {
+            Intent go = new Intent(getApplicationContext(), About.class);
+            startActivity(go);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }
 
 

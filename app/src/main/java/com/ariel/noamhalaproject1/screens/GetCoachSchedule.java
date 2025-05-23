@@ -74,6 +74,7 @@ public class GetCoachSchedule extends AppCompatActivity {
             @Override
             public void onDetails(Workout workout) {
                 Intent intent = new Intent(GetCoachSchedule.this, DetailsWorkout.class);
+                intent.putExtra("workout", workout);
                 startActivity(intent);
             }
         }); // WorkoutAdapter will use the finalized XML layout
