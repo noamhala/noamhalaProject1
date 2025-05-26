@@ -7,11 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1A1A2E"
-    tools:context=".screens.DetailsWorkout">
+    tools:context=".screens.CoachProfile">
 
     <!-- Title -->
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/title_coach_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -24,165 +24,183 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Coach Name -->
+    <!-- Name -->
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/label_coach_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Full Name:"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
         android:layout_marginTop="32dp"
-        android:text="Coach name:"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView13"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="32dp" />
+        android:layout_marginStart="32dp"
+        app:layout_constraintTop_toBottomOf="@id/title_coach_profile"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_trainee_name"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/tv_coach_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="John Doe"
+        android:hint="John Doe"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView12"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_coach_name"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="32dp" />
 
-    <!-- Trainee Name -->
+    <!-- Phone -->
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/label_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Phone:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView12"
-        app:layout_constraintStart_toStartOf="@id/textView12" />
-
-    <TextView
-        android:id="@+id/tv_phone_trainee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0527384953"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView15"
-        app:layout_constraintEnd_toEndOf="@id/tv_trainee_name" />
-
-    <!-- Date -->
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_coach_name"
+        app:layout_constraintStart_toStartOf="@id/label_coach_name" />
+
+    <EditText
+        android:id="@+id/tv_phone_coach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="0501234567"
+        android:inputType="phone"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_phone"
+        app:layout_constraintEnd_toEndOf="@id/tv_coach_name" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/label_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Email:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView15"
-        app:layout_constraintStart_toStartOf="@id/textView15" />
-
-    <TextView
-        android:id="@+id/tv_email_trainee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user@gmail.com"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView17"
-        app:layout_constraintEnd_toEndOf="@id/tv_phone_trainee" />
-
-    <!-- Time -->
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_phone"
+        app:layout_constraintStart_toStartOf="@id/label_phone" />
+
+    <EditText
+        android:id="@+id/tv_email_coach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="coach@example.com"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_email"
+        app:layout_constraintEnd_toEndOf="@id/tv_phone_coach" />
+
+    <!-- City -->
+    <TextView
+        android:id="@+id/label_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="City:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView17"
-        app:layout_constraintStart_toStartOf="@id/textView17" />
-
-    <TextView
-        android:id="@+id/tv_city_trainee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ראשון לציון"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView19"
-        app:layout_constraintEnd_toEndOf="@id/tv_email_trainee" />
-
-    <!-- Location -->
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_email"
+        app:layout_constraintStart_toStartOf="@id/label_email" />
+
+    <EditText
+        android:id="@+id/tv_city_coach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Tel Aviv"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_city"
+        app:layout_constraintEnd_toEndOf="@id/tv_email_coach" />
+
+    <!-- Domain -->
+    <TextView
+        android:id="@+id/label_domain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Domain:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView19"
-        app:layout_constraintStart_toStartOf="@id/textView19" />
-
-    <TextView
-        android:id="@+id/tv_age_trainee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gym"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView20"
-        app:layout_constraintEnd_toEndOf="@id/tv_city_trainee" />
-
-    <!-- Goals -->
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_city"
+        app:layout_constraintStart_toStartOf="@id/label_city" />
+
+    <EditText
+        android:id="@+id/tv_domain_coach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Yoga"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_domain"
+        app:layout_constraintEnd_toEndOf="@id/tv_city_coach" />
+
+    <!-- Price -->
+    <TextView
+        android:id="@+id/label_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Price:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView20"
-        app:layout_constraintStart_toStartOf="@id/textView20" />
-
-    <TextView
-        android:id="@+id/tv_height_trainee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="50$"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView23"
-        app:layout_constraintEnd_toEndOf="@id/tv_age_trainee" />
-
-    <!-- Status -->
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_domain"
+        app:layout_constraintStart_toStartOf="@id/label_domain" />
+
+    <EditText
+        android:id="@+id/tv_price_coach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="60"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_price"
+        app:layout_constraintEnd_toEndOf="@id/tv_domain_coach" />
+
+    <!-- Experience -->
+    <TextView
+        android:id="@+id/label_experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Experience:"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView23"
-        app:layout_constraintStart_toStartOf="@id/textView23" />
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/label_price"
+        app:layout_constraintStart_toStartOf="@id/label_price" />
 
-    <TextView
-        android:id="@+id/tv_weight_trainee"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/tv_experience_coach"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="5 years"
-        android:textSize="18sp"
+        android:hint="7"
+        android:inputType="number"
         android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@id/textView25"
-        app:layout_constraintEnd_toEndOf="@id/tv_height_trainee" />
+        android:backgroundTint="#00BFFF"
+        android:padding="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/label_experience"
+        app:layout_constraintEnd_toEndOf="@id/tv_price_coach" />
 
-    <!-- Save Details Button -->
+    <!-- Save Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save_details_trainee"
+        android:id="@+id/btn_save_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -193,13 +211,13 @@
         android:textStyle="bold"
         app:cornerRadius="24dp"
         app:backgroundTint="#00BFFF"
-        app:layout_constraintTop_toBottomOf="@id/textView25"
+        app:layout_constraintTop_toBottomOf="@id/label_experience"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- View History Button -->
+    <!-- History Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_history_trainee"
+        android:id="@+id/btn_history_coach"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -211,7 +229,7 @@
         android:textStyle="bold"
         app:cornerRadius="24dp"
         app:backgroundTint="#1E90FF"
-        app:layout_constraintTop_toBottomOf="@id/btn_save_details_trainee"
+        app:layout_constraintTop_toBottomOf="@id/btn_save_details"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
