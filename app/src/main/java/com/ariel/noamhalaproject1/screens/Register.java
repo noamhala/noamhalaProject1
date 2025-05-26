@@ -53,28 +53,43 @@
             super.onCreate(savedInstanceState);
             EdgeToEdge.enable(this);
             setContentView(R.layout.activity_register);
+
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return insets;
             });
 
-            // Initialize services
+            // Services
             authenticationService = AuthenticationService.getInstance();
             databaseService = DatabaseService.getInstance();
+
+            // View bindings
             initViews();
 
-            // SharedPreferences initialization
+            // 🟦 FIX: Set custom adapters with white text and dark dropdown
+            ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
+                    this,
+                    R.array.spTypeUser,
+                    R.layout.spinner_item_dark  // white text layout
+            );
+            typeAdapter.setDropDownViewResource(R.layout.spinner_item_dark);
+            spTypeUser.setAdapter(typeAdapter);
+            spTypeUser.setPopupBackgroundResource(R.drawable.spinner_popup_dark);
 
-            // Set onClick listener
+            ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(
+                    this,
+                    R.array.cityArr,
+                    R.layout.spinner_item_dark
+            );
+            cityAdapter.setDropDownViewResource(R.layout.spinner_item_dark);
+            spCity.setAdapter(cityAdapter);
+            spCity.setPopupBackgroundResource(R.drawable.spinner_popup_dark);
+
+            // Listeners
             btnRegister.setOnClickListener(this);
-
-            // Set up the Spinner adapter for spTypeUser (user type selection)
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.spTypeUser, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spTypeUser.setAdapter(adapter);
         }
+
 
         private void initViews() {
             etEmail = findViewById(R.id.etEmail);

@@ -232,6 +232,15 @@ public class DatabaseService {
         createNewUser(currentUser, databaseCallback);
     }
 
+    public void updateCoach(Coach currentCoach, DatabaseCallback<Void> databaseCallback) {
+        // Use the same internal logic as creating a new coach, since it's an overwrite
+        createNewCoach(currentCoach, databaseCallback);
+    }
+
+
+
+
+
     // New public method to fetch workouts for a specific coach
     public void getCoachWorkouts(String coachId, @NotNull final DatabaseCallback<List<Workout>> callback) {
         getDataList("workouts", Workout.class, new DatabaseCallback<List<Workout>>() {

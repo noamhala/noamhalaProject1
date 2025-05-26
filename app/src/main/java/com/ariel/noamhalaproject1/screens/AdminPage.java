@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,18 @@ public class AdminPage extends AppCompatActivity {
         return true;
     }
 
-
+    public void goTraineeList(View view) {
+        Intent go = new Intent(getApplicationContext(), TraineeList.class);
+        startActivity(go);
+    }
+    public void goCoachList(View view) {
+        Intent go = new Intent(getApplicationContext(), ListCoach.class);
+        startActivity(go);
+    }
+    public void goMainPage(View view) {
+        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(go);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

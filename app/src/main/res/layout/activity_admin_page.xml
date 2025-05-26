@@ -1,46 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#1A1A2E"
     android:layoutDirection="rtl"
     tools:context=".screens.AdminPage">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="דף מנהל"
-        android:textSize="25sp"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="72dp" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <!-- Button: Coach List -->
+
+    <!-- Button: Trainee List -->
+
+    <!-- Button: History -->
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button3"
-        android:layout_width="336dp"
-        android:layout_height="51dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="140dp"
+        android:onClick="goCoachList"
         android:text="רשימת מאמנים"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="225dp" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#00BFFF"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView4" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button4"
-        android:layout_width="326dp"
-        android:layout_height="47dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
         android:text="רשימת מתאמנים"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="324dp" />
+        android:onClick="goTraineeList"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#1E90FF"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button5"
-        android:layout_width="329dp"
-        android:layout_height="48dp"
-        android:text="היסטורית שיעורים"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="413dp" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        android:text="דף ראשי"
+        android:onClick="goMainPage"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#4682B4"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

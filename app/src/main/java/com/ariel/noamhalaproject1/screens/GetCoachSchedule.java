@@ -50,8 +50,8 @@ public class GetCoachSchedule extends AppCompatActivity {
         // Initialize services
         databaseService = DatabaseService.getInstance();
         authenticationService = AuthenticationService.getInstance();
-        uid = authenticationService.getCurrentUserId();
-
+        Intent intent = getIntent();
+        uid = intent.hasExtra("coachId") ? intent.getStringExtra("coachId") : authenticationService.getCurrentUserId();
         // Setup ListView
         lvCoachSchedule = findViewById(R.id.lvCoachSchedule);
         workoutAdapter = new WorkoutAdapter(this, workouts, new WorkoutAdapter.OnItemWorkout() {
