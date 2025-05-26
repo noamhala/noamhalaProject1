@@ -1,179 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#1A1A2E"
     tools:context=".screens.DetailsWorkout">
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="129dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:gravity="center"
-        android:text="Coach name:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
+    <!-- Title -->
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="240dp"
-        android:layout_height="53dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:gravity="center"
         android:text="פרופיל אימון"
-        android:textSize="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Coach Name -->
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Coach name:"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView13"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="32dp" />
 
     <TextView
         android:id="@+id/tv_workout_coach_name"
-        android:layout_width="146dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="John Doe"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        android:layout_marginEnd="32dp" />
 
+    <!-- Trainee Name -->
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="128dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="22dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Trainee name:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView12"
+        app:layout_constraintStart_toStartOf="@id/textView12" />
 
     <TextView
         android:id="@+id/tv_workout_trainee_name"
-        android:layout_width="140dp"
-        android:layout_height="35dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_coach_name"
-        app:layout_constraintTop_toTopOf="@+id/textView15" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jane Smith"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView15"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_coach_name" />
 
+    <!-- Date -->
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="123dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="26dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Date:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView15"
+        app:layout_constraintStart_toStartOf="@id/textView15" />
 
     <TextView
         android:id="@+id/tv_workout_Date"
-        android:layout_width="128dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="textview"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_trainee_name"
-        app:layout_constraintTop_toTopOf="@+id/textView17" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/06/2025"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView17"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_trainee_name" />
 
+    <!-- Time -->
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="121dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="14dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Time:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="120dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="34dp"
-        android:gravity="center"
-        android:text="Location:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView17"
+        app:layout_constraintStart_toStartOf="@id/textView17" />
 
     <TextView
         android:id="@+id/tv_workout_Time"
-        android:layout_width="123dp"
-        android:layout_height="46dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView19"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_Date"
-        app:layout_constraintTop_toTopOf="@+id/textView19" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="16:00"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView19"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_Date" />
+
+    <!-- Location -->
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Location:"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView19"
+        app:layout_constraintStart_toStartOf="@id/textView19" />
 
     <TextView
         android:id="@+id/tv_workout_Location"
-        android:layout_width="121dp"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView20"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_Time"
-        app:layout_constraintTop_toTopOf="@+id/textView20" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gym"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView20"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_Time" />
 
+    <!-- Goals -->
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="119dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Goals:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView20"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView20"
+        app:layout_constraintStart_toStartOf="@id/textView20" />
 
     <TextView
         android:id="@+id/tv_workout_Goals"
-        android:layout_width="116dp"
-        android:layout_height="49dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView23"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_Location"
-        app:layout_constraintTop_toTopOf="@+id/textView23" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Build muscle"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView23"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_Location" />
 
+    <!-- Status -->
     <TextView
         android:id="@+id/textView25"
-        android:layout_width="106dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="35dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Status:"
-        android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/textView23"
+        app:layout_constraintStart_toStartOf="@id/textView23" />
 
     <TextView
         android:id="@+id/tv_workout_Status"
-        android:layout_width="108dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView25"
-        app:layout_constraintEnd_toEndOf="@+id/tv_workout_Goals"
-        app:layout_constraintTop_toTopOf="@+id/textView25" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView25"
+        app:layout_constraintEnd_toEndOf="@id/tv_workout_Goals" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

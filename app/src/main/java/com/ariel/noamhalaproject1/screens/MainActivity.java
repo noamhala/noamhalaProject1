@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goListCoach(View view) {
         // Create an Intent to go to the Login activity
-        Intent go = new Intent(getApplicationContext(), CoachRequest.class);
+        Intent go = new Intent(getApplicationContext(), About.class);
         // Start the Login activity
         startActivity(go);
     }

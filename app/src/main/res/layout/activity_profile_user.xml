@@ -1,123 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#1A1A2E"
     tools:context=".screens.ProfileUser">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/tvEditTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Edit User"
         android:textSize="24sp"
-        android:textColor="@android:color/black"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Name Label -->
     <TextView
         android:id="@+id/tvEditUserNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
         android:text="Name"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="36dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEditTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditTitle" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Name Input -->
     <EditText
         android:id="@+id/etEditUserName"
-        android:layout_width="280dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:hint="Enter user name"
         android:inputType="textPersonName"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
+        android:backgroundTint="#00BFFF"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvEditUserNameLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditUserNameLabel" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Email Label -->
     <TextView
         android:id="@+id/tvEditUserEmailLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:text="Email"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/etEditUserName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEditUserName" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Email Input -->
     <EditText
         android:id="@+id/etEditUserEmail"
-        android:layout_width="275dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:hint="Enter email"
         android:inputType="textEmailAddress"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
+        android:backgroundTint="#00BFFF"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvEditUserEmailLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditUserEmailLabel" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Phone Label -->
     <TextView
         android:id="@+id/tvEditUserPhoneLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="Phone"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/etEditUserEmail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEditUserEmail" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Phone Input -->
     <EditText
         android:id="@+id/etEditUserPhone"
-        android:layout_width="286dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:hint="Enter phone number"
         android:inputType="phone"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
+        android:backgroundTint="#00BFFF"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvEditUserPhoneLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEditUserPhoneLabel" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <!-- Save Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveUser"
-        android:layout_width="315dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="56dp"
-        android:background="@color/colorAccent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginHorizontal="24dp"
         android:text="Save Changes"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        app:cornerRadius="24dp"
+        app:backgroundTint="#00BFFF"
+        app:layout_constraintTop_toBottomOf="@id/etEditUserPhone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEditUserPhone" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

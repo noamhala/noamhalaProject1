@@ -1,67 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#1A1A2E"
     tools:context=".screens.About">
+
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:titleTextColor="#FFFFFF"
+        android:background="#1A1A2E"
+        android:titleTextColor="@android:color/white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="About"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Title -->
+
+    <!-- Subtitle -->
+
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
         android:text="About Us"
+        android:textColor="@android:color/white"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- Subtitle -->
     <TextView
         android:id="@+id/textViewSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Connecting Coaches Trainees"
+        android:text="Connecting Coaches and Trainees"
         android:textSize="16sp"
+        android:textColor="#B0C4DE"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- Description Text -->
+    <!-- Description -->
     <TextView
         android:id="@+id/textViewDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="415dp"
+        android:layout_height="306dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:lineSpacingExtra="6dp"
-        android:padding="24dp"
+        android:paddingHorizontal="24dp"
         android:text="This app is designed to create a seamless connection between fitness coaches and trainees. Our goal is to help users find the right trainer, schedule effective workout sessions, and track their progress in an intuitive and efficient way.\n\nWhether you're a coach looking to expand your client base or a trainee seeking expert guidance, this app bridges the gap with user-friendly features and smart scheduling — powered by Firebase."
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewSubtitle"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.064" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

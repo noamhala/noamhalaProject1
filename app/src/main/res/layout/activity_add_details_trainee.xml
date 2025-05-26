@@ -1,76 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-
+    android:background="#1A1A2E"
     tools:context=".screens.AddDetailsTrainee">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/textview5"
-        android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginBottom="83dp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:text="הוספת פרטים מתאמן"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/etAge"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Age -->
+
+    <!-- Weight -->
 
     <EditText
         android:id="@+id/etAge"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="42dp"
-        android:ems="10"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="#00BFFF"
         android:hint="Age"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/etWeight"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview5" />
+        app:layout_constraintTop_toBottomOf="@id/textview5" />
 
     <EditText
         android:id="@+id/etWeight"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:hint="Weight"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/etHeight"
-        app:layout_constraintStart_toStartOf="@+id/etAge"
-        app:layout_constraintTop_toBottomOf="@+id/etAge" />
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
+        android:backgroundTint="#00BFFF"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etAge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Height -->
     <EditText
         android:id="@+id/etHeight"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp"
-        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:hint="Height"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/btnFinishTrainee"
-        app:layout_constraintStart_toStartOf="@+id/etWeight"
-        app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+        android:textColor="@android:color/white"
+        android:textColorHint="#B0C4DE"
+        android:backgroundTint="#1E90FF"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <!-- Finish Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinishTrainee"
-        android:layout_width="189dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="173dp"
-        android:background="@drawable/rounded_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:text="סיום הרשמה"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="#00BFFF"
+        app:cornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
-
+        app:layout_constraintTop_toBottomOf="@id/etHeight"
+        app:layout_constraintVertical_bias="0.322" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,55 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#2A2D3E">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Coach Name -->
         <TextView
             android:id="@+id/txtCoachName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:text="Coach Name"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="6dp"/>
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Domain -->
         <TextView
             android:id="@+id/txtDomain"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="6dp"/>
+            android:text="Domain: Cardio"
+            android:textSize="16sp"
+            android:textColor="#B0C4DE"
+            app:layout_constraintTop_toBottomOf="@id/txtCoachName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
+        <!-- Price -->
         <TextView
             android:id="@+id/txtPrice"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="6dp"/>
+            android:text="Price: $50/session"
+            android:textSize="16sp"
+            android:textColor="#B0C4DE"
+            app:layout_constraintTop_toBottomOf="@id/txtDomain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp" />
 
+        <!-- Experience -->
         <TextView
             android:id="@+id/TxtExperience"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="6dp"/>
+            android:text="Experience: 5 years"
+            android:textSize="16sp"
+            android:textColor="#B0C4DE"
+            app:layout_constraintTop_toBottomOf="@id/txtPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp" />
 
+        <!-- Phone Number -->
         <TextView
             android:id="@+id/txtPhoneNumber"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="6dp"/>
+            android:text="Phone: 123-456-7890"
+            android:textSize="16sp"
+            android:textColor="#B0C4DE"
+            app:layout_constraintTop_toBottomOf="@id/TxtExperience"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="2dp" />
 
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
