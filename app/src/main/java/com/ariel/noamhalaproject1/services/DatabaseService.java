@@ -237,7 +237,9 @@ public class DatabaseService {
         createNewCoach(currentCoach, databaseCallback);
     }
 
-
+    public void updateTrainee(Trainee currentTrainee, DatabaseCallback<Void> callback) {
+        createNewTrainee(currentTrainee, callback); // Overwrites the existing one
+    }
 
 
 

@@ -46,7 +46,8 @@ public class GetTraineeSchedule extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
         authenticationService = AuthenticationService.getInstance();
-        uid = authenticationService.getCurrentUserId();
+        Intent intent = getIntent();
+        uid = intent.hasExtra("traineeId") ? intent.getStringExtra("traineeId") : authenticationService.getCurrentUserId();
 
         lvTraineeSchedule = findViewById(R.id.lvTraineeSchedule);  // Ensure this matches the ListView ID in XML
         adpTraineeSchedule = new WorkoutAdapter(this, workouts, new WorkoutAdapter.OnItemWorkout() {
@@ -80,12 +81,16 @@ public class GetTraineeSchedule extends AppCompatActivity {
             @Override
             public void onCompleted(List<Workout> ws) {
                 Log.d("GetTraineeSchedule", "Retrieved workouts: " + ws.size());
-                ws.removeIf(workout -> workout.getAccepted() == null);
+                ws.removeIf(workout -> workout.getAccepted() == null || !workout.getAccepted());
                 workouts.addAll(ws);  // Add the retrieved workouts to the list
+                if (workouts.isEmpty()) {
+                    Toast.makeText(GetTraineeSchedule.this, "No approved workouts found", Toast.LENGTH_SHORT).show();
+                }
                 adpTraineeSchedule.notifyDataSetChanged();  // Notify the adapter to update the ListView
 
                 Log.e("workoutList", workouts.toString());
             }
+
 
             @Override
             public void onFailed(Exception e) {

@@ -27,15 +27,15 @@ public class CoachProfile extends AppCompatActivity {
         setContentView(R.layout.activity_details_workout); // Ensure layout uses EditTexts with correct IDs
 
         // Initialize views
-        etCoachName = findViewById(R.id.tv_coach_name);
-        etCoachPhone = findViewById(R.id.tv_phone_coach);
-        etCoachEmail = findViewById(R.id.tv_email_coach);
-        etCoachCity = findViewById(R.id.tv_city_coach);
-        etCoachDomain = findViewById(R.id.tv_domain_coach);
-        etCoachPrice = findViewById(R.id.tv_price_coach);
-        etCoachExperience = findViewById(R.id.tv_experience_coach);
-        btnSaveDetails = findViewById(R.id.btn_save_details);
-        btnViewHistory = findViewById(R.id.btn_history_coach);
+        etCoachName = findViewById(R.id.tv_trainee_name);
+        etCoachPhone = findViewById(R.id.tv_phone_trainee);
+        etCoachEmail = findViewById(R.id.tv_email_trainee);
+        etCoachCity = findViewById(R.id.tv_city_trainee);
+        etCoachDomain = findViewById(R.id.tv_age_trainee);
+        etCoachPrice = findViewById(R.id.tv_height_trainee);
+        etCoachExperience = findViewById(R.id.tv_weight_trainee);
+        btnSaveDetails = findViewById(R.id.btn_save_details_trainee);
+        btnViewHistory = findViewById(R.id.btn_history_trainee);
 
         databaseService = DatabaseService.getInstance();
         coachId = AuthenticationService.getInstance().getCurrentUserId();

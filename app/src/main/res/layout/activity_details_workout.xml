@@ -38,7 +38,7 @@
         android:layout_marginStart="32dp" />
 
     <TextView
-        android:id="@+id/tv_coach_name"
+        android:id="@+id/tv_trainee_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="John Doe"
@@ -61,14 +61,14 @@
         app:layout_constraintStart_toStartOf="@id/textView12" />
 
     <TextView
-        android:id="@+id/tv_phone_coach"
+        android:id="@+id/tv_phone_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Jane Smith"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView15"
-        app:layout_constraintEnd_toEndOf="@id/tv_coach_name" />
+        app:layout_constraintEnd_toEndOf="@id/tv_trainee_name" />
 
     <!-- Date -->
     <TextView
@@ -83,14 +83,14 @@
         app:layout_constraintStart_toStartOf="@id/textView15" />
 
     <TextView
-        android:id="@+id/tv_email_coach"
+        android:id="@+id/tv_email_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12/06/2025"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView17"
-        app:layout_constraintEnd_toEndOf="@id/tv_phone_coach" />
+        app:layout_constraintEnd_toEndOf="@id/tv_phone_trainee" />
 
     <!-- Time -->
     <TextView
@@ -105,14 +105,14 @@
         app:layout_constraintStart_toStartOf="@id/textView17" />
 
     <TextView
-        android:id="@+id/tv_city_coach"
+        android:id="@+id/tv_city_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="16:00"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView19"
-        app:layout_constraintEnd_toEndOf="@id/tv_email_coach" />
+        app:layout_constraintEnd_toEndOf="@id/tv_email_trainee" />
 
     <!-- Location -->
     <TextView
@@ -127,14 +127,14 @@
         app:layout_constraintStart_toStartOf="@id/textView19" />
 
     <TextView
-        android:id="@+id/tv_domain_coach"
+        android:id="@+id/tv_age_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gym"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView20"
-        app:layout_constraintEnd_toEndOf="@id/tv_city_coach" />
+        app:layout_constraintEnd_toEndOf="@id/tv_city_trainee" />
 
     <!-- Goals -->
     <TextView
@@ -149,14 +149,14 @@
         app:layout_constraintStart_toStartOf="@id/textView20" />
 
     <TextView
-        android:id="@+id/tv_price_coach"
+        android:id="@+id/tv_height_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Build muscle"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView23"
-        app:layout_constraintEnd_toEndOf="@id/tv_domain_coach" />
+        app:layout_constraintEnd_toEndOf="@id/tv_age_trainee" />
 
     <!-- Status -->
     <TextView
@@ -171,13 +171,13 @@
         app:layout_constraintStart_toStartOf="@id/textView23" />
 
     <TextView
-        android:id="@+id/tv_experience_coach"
+        android:id="@+id/tv_weight_trainee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pending"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/textView25"
-        app:layout_constraintEnd_toEndOf="@id/tv_price_coach" />
+        app:layout_constraintEnd_toEndOf="@id/tv_height_trainee" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

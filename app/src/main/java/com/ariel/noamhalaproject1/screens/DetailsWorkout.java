@@ -42,13 +42,13 @@ public class DetailsWorkout extends AppCompatActivity {
     }
 
     private void initView() {
-        tvCoachName = findViewById(R.id.tv_coach_name);
-        tvTraineeName = findViewById(R.id.tv_phone_coach);
-        tvDate = findViewById(R.id.tv_email_coach);
-        tvTime = findViewById(R.id.tv_city_coach);
-        tvLocation = findViewById(R.id.tv_domain_coach);
-        tvgoals = findViewById(R.id.tv_price_coach);
-        tvstatus = findViewById(R.id.tv_experience_coach);
+        tvCoachName = findViewById(R.id.tv_trainee_name);
+        tvTraineeName = findViewById(R.id.tv_phone_trainee);
+        tvDate = findViewById(R.id.tv_email_trainee);
+        tvTime = findViewById(R.id.tv_city_trainee);
+        tvLocation = findViewById(R.id.tv_age_trainee);
+        tvgoals = findViewById(R.id.tv_height_trainee);
+        tvstatus = findViewById(R.id.tv_weight_trainee);
 
         tvDate.setText(this.workout.getDate());
         tvTime.setText(this.workout.getHour());
