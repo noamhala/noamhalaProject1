@@ -18,28 +18,29 @@ import java.util.List;
 
 public class TraineeAdapter extends RecyclerView.Adapter<TraineeAdapter.TraineeViewHolder> implements Filterable {
 
-    private List<Trainee> trainees;
-    private List<Trainee> traineesFull;
+    private final List<Trainee> trainees;
+    private final List<Trainee> traineesFull;
+    private final OnTraineeClickListener listener;
 
-    public TraineeAdapter(List<Trainee> trainees) {
+    // ✅ Constructor that accepts the click listener
+    public TraineeAdapter(List<Trainee> trainees, OnTraineeClickListener listener) {
         this.trainees = trainees;
-        this.traineesFull = new ArrayList<>(trainees); // Store the original list for filtering
+        this.traineesFull = new ArrayList<>(trainees);
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public TraineeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for a single trainee item
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trainee_item, parent, false);
         return new TraineeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TraineeViewHolder holder, int position) {
-        // Get the trainee object from the list
         Trainee trainee = trainees.get(position);
-        // Bind the trainee data to the respective views in the ViewHolder
         holder.bind(trainee);
+        holder.itemView.setOnClickListener(v -> listener.onTraineeClick(trainee));  // ✅ Attach click here
     }
 
     @Override
@@ -53,16 +54,13 @@ public class TraineeAdapter extends RecyclerView.Adapter<TraineeAdapter.TraineeV
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 List<Trainee> filteredList = new ArrayList<>();
-
                 if (constraint == null || constraint.length() == 0) {
-                    // If the search query is empty, show all items
                     filteredList.addAll(traineesFull);
                 } else {
                     String filterPattern = constraint.toString().toLowerCase().trim();
-                    // Filter based on the trainee's name (you can add more conditions as needed)
                     for (Trainee trainee : traineesFull) {
-                        if (trainee.getFname().toLowerCase().contains(filterPattern) ||
-                                trainee.getLname().toLowerCase().contains(filterPattern)) {
+                        if (trainee.getFname().toLowerCase().contains(filterPattern)
+                                || trainee.getLname().toLowerCase().contains(filterPattern)) {
                             filteredList.add(trainee);
                         }
                     }
@@ -78,31 +76,28 @@ public class TraineeAdapter extends RecyclerView.Adapter<TraineeAdapter.TraineeV
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 trainees.clear();
                 if (results != null && results.count > 0) {
-                    trainees.addAll((List) results.values);
+                    trainees.addAll((List<Trainee>) results.values);
                 }
                 notifyDataSetChanged();
             }
         };
     }
 
-    // ViewHolder class to hold and bind trainee item views
+    // ViewHolder class
     public static class TraineeViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView txtTraineeName;
-        private TextView txtWeight;
-        private TextView txtHeight;
-        private TextView txtPhoneNumber;
+        private final TextView txtTraineeName;
+        private final TextView txtWeight;
+        private final TextView txtHeight;
+        private final TextView txtPhoneNumber;
 
         public TraineeViewHolder(View view) {
             super(view);
-            // Find the views by their IDs
             txtTraineeName = view.findViewById(R.id.txtTraineeName);
             txtWeight = view.findViewById(R.id.txtWeight);
             txtHeight = view.findViewById(R.id.txtHeight);
             txtPhoneNumber = view.findViewById(R.id.txtPhoneNumber);
         }
 
-        // Bind the data from the trainee object to the UI elements
         public void bind(Trainee trainee) {
             txtTraineeName.setText(trainee.getFname() + " " + trainee.getLname());
             txtWeight.setText("Weight: " + trainee.getWeight() + " kg");
@@ -111,4 +106,8 @@ public class TraineeAdapter extends RecyclerView.Adapter<TraineeAdapter.TraineeV
         }
     }
 
+    // Listener interface
+    public interface OnTraineeClickListener {
+        void onTraineeClick(Trainee trainee);
+    }
 }
