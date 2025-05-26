@@ -3,6 +3,7 @@ package com.ariel.noamhalaproject1.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -43,14 +44,23 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coach_request);
+        setContentView(R.layout.activity_coach_request); // ✅ Must come first
 
         authenticationService = AuthenticationService.getInstance();
         uid = authenticationService.getCurrentUserId();
         databaseService = DatabaseService.getInstance();
-        initViews();
 
+        initViews(); // sets up all view bindings
 
+        // ✅ Spinner setup AFTER layout is loaded
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.hoursArr,
+                R.layout.spinner_item_dark
+        );
+        adapter.setDropDownViewResource(R.layout.spinner_item_dark);
+        sphours.setAdapter(adapter);
+        sphours.setPopupBackgroundResource(R.drawable.spinner_popup_dark);
 
         databaseService.getTrainee(uid, new DatabaseService.DatabaseCallback<Trainee>() {
             @Override
@@ -61,9 +71,9 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailed(Exception e) {
-
             }
         });
+
         takeit = getIntent();
         coach = (Coach) takeit.getSerializableExtra("coach");
 
@@ -71,6 +81,7 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
             etNameCoach.setText(coach.getFname() + " " + coach.getLname());
         }
     }
+
 
     private void initViews() {
         etNameTrainee = findViewById(R.id.etNameTrainee);

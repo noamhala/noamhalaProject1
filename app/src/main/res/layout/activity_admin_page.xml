@@ -23,7 +23,6 @@
         android:id="@+id/button3"
         android:layout_width="336dp"
         android:layout_height="51dp"
-        android:background="@drawable/rounded_button"
         android:text="רשימת מאמנים"
         tools:layout_editor_absoluteX="37dp"
         tools:layout_editor_absoluteY="225dp" />
@@ -32,7 +31,6 @@
         android:id="@+id/button4"
         android:layout_width="326dp"
         android:layout_height="47dp"
-        android:background="@drawable/rounded_button"
         android:text="רשימת מתאמנים"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="324dp" />
@@ -41,7 +39,6 @@
         android:id="@+id/button5"
         android:layout_width="329dp"
         android:layout_height="48dp"
-        android:background="@drawable/rounded_button"
         android:text="היסטורית שיעורים"
         tools:layout_editor_absoluteX="41dp"
         tools:layout_editor_absoluteY="413dp" />
