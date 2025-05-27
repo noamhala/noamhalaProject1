@@ -27,6 +27,9 @@ public class TraineeMainPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
     }
 
     public void goListCoach(View view) {
@@ -34,6 +37,12 @@ public class TraineeMainPage extends AppCompatActivity {
         Intent go = new Intent(getApplicationContext(), ListCoach.class);
         // Start the Register activity
         startActivity(go);
+
+
+        Intent intent = new Intent(TraineeMainPage.this, ListCoach.class);
+        intent.putExtra("isAdmin", false);
+        startActivity(intent);
+
     }
     public void goProfileUser(View view) {
         Intent go = new Intent(getApplicationContext(), ProfileUser.class);

@@ -38,15 +38,19 @@ public class ListCoach extends AppCompatActivity {
             return insets;
         });
 
+        // Get the isAdmin flag from the intent
+        boolean isAdmin = getIntent().getBooleanExtra("isAdmin", false);
+
+        // Initialize RecyclerView
         initViews();
 
         // Fetch coaches from the database
         databaseService.getCoaches(new DatabaseService.DatabaseCallback<List<Coach>>() {
             @Override
             public void onCompleted(List<Coach> coaches) {
-                coachAdapter = new CoachAdapter(coaches,ListCoach.this);
+                // Pass isAdmin to the adapter
+                coachAdapter = new CoachAdapter(coaches, ListCoach.this, isAdmin);
                 rvCoaches.setAdapter(coachAdapter);
-
             }
 
             @Override
@@ -60,12 +64,11 @@ public class ListCoach extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false; // Do nothing when query is submitted
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Filter the list of coaches as the user types
                 if (coachAdapter != null) {
                     coachAdapter.getFilter().filter(newText);
                 }
@@ -73,6 +76,7 @@ public class ListCoach extends AppCompatActivity {
             }
         });
     }
+
 
     private void initViews() {
         rvCoaches = findViewById(R.id.rvCoaches);

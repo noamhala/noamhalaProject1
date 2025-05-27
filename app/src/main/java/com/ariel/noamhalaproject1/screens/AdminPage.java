@@ -27,6 +27,7 @@ public class AdminPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
     }
 
     @Override
@@ -42,6 +43,9 @@ public class AdminPage extends AppCompatActivity {
     public void goCoachList(View view) {
         Intent go = new Intent(getApplicationContext(), ListCoach.class);
         startActivity(go);
+        Intent intent = new Intent(AdminPage.this, ListCoach.class);
+        intent.putExtra("isAdmin", true); // tell ListCoach this is an admin
+        startActivity(intent);
     }
     public void goMainPage(View view) {
         Intent go = new Intent(getApplicationContext(), MainActivity.class);
@@ -66,4 +70,6 @@ public class AdminPage extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

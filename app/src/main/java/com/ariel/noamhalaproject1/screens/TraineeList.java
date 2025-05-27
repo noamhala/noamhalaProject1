@@ -78,4 +78,5 @@ public class TraineeList extends AppCompatActivity {
         rvTrainees = findViewById(R.id.rvTrainees);
         rvTrainees.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }

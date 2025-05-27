@@ -3,6 +3,7 @@ package com.ariel.noamhalaproject1.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -10,14 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.Trainee;
-import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
 import com.google.android.material.button.MaterialButton;
 
 public class TraineeProfile extends AppCompatActivity {
 
     private EditText etTraineeName, etTraineePhone, etTraineeEmail, etTraineeCity, etTraineeAge, etTraineeHeight, etTraineeWeight;
-    private MaterialButton btnSaveDetails, btnViewHistory;
+    private MaterialButton btnSaveDetails, btnViewHistory, btnDeleteUser;
     private DatabaseService databaseService;
     private String traineeId;
     private Trainee currentTrainee;
@@ -25,7 +25,7 @@ public class TraineeProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_workout);  // Make sure you're using the layout with the NEW IDs
+        setContentView(R.layout.activity_trainee_profile);
 
         // Initialize UI
         etTraineeName = findViewById(R.id.tv_trainee_name);
@@ -37,10 +37,13 @@ public class TraineeProfile extends AppCompatActivity {
         etTraineeWeight = findViewById(R.id.tv_weight_trainee);
         btnSaveDetails = findViewById(R.id.btn_save_details_trainee);
         btnViewHistory = findViewById(R.id.btn_history_trainee);
+        btnDeleteUser = findViewById(R.id.btn_delete_user);
 
         // Initialize services
         databaseService = DatabaseService.getInstance();
-        traineeId = AuthenticationService.getInstance().getCurrentUserId();
+
+        // Get traineeId from Intent
+        traineeId = getIntent().getStringExtra("traineeId");
 
         if (traineeId == null || traineeId.isEmpty()) {
             Toast.makeText(this, "Invalid trainee ID", Toast.LENGTH_SHORT).show();
@@ -48,7 +51,7 @@ public class TraineeProfile extends AppCompatActivity {
             return;
         }
 
-        // Load trainee
+        // Load trainee data
         databaseService.getTrainee(traineeId, new DatabaseService.DatabaseCallback<Trainee>() {
             @Override
             public void onCompleted(Trainee trainee) {
@@ -119,12 +122,43 @@ public class TraineeProfile extends AppCompatActivity {
             });
         });
 
-        // History Button Listener
-        btnViewHistory = findViewById(R.id.btn_history_trainee); // ✅ This line already exists
-        btnViewHistory.setOnClickListener(v -> {
-            Intent intent = new Intent(TraineeProfile.this, GetTraineeSchedule.class);
-            startActivity(intent);
+        // Delete Button Listener (set independently, NOT inside save button listener)
+        btnDeleteUser.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(TraineeProfile.this)
+                    .setTitle("מחק משתמש")
+                    .setMessage("אתה בטוח שברצונך למחוק את המשתמש? פעולה זו לא ניתנת לביטול.")
+                    .setPositiveButton("מחק", (dialog, which) -> deleteUser())
+                    .setNegativeButton("בטל", null)
+                    .show();
         });
 
+        // History Button Listener
+        btnViewHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(TraineeProfile.this, GetTraineeSchedule.class);
+            intent.putExtra("traineeId", traineeId);
+            startActivity(intent);
+        });
     }
-}
+
+    // deleteUser method OUTSIDE setView()
+    private void deleteUser() {
+        if (currentTrainee == null || traineeId == null) {
+            Toast.makeText(this, "Error: No trainee loaded", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        databaseService.deleteTrainee(traineeId, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void unused) {
+                Toast.makeText(TraineeProfile.this, "המשתמש נמחק בהצלחה", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(TraineeProfile.this, "שגיאה במחיקת המשתמש", Toast.LENGTH_SHORT).show();
+                Log.e("TraineeProfile", "Delete failed", e);
+            }
+        });
+    }
+} 

@@ -74,13 +74,32 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        takeit = getIntent();
-        coach = (Coach) takeit.getSerializableExtra("coach");
-
-        if (coach != null) {
-            etNameCoach.setText(coach.getFname() + " " + coach.getLname());
+        // ✅ REPLACE the object deserialization with ID fetching
+        String coachId = getIntent().getStringExtra("coachId");
+        if (coachId == null || coachId.isEmpty()) {
+            android.util.Log.e("CoachRequest", "Invalid coach ID");
+            finish(); // or show an error
+            return;
         }
+
+        // ✅ Now fetch coach by ID
+        databaseService.getCoach(coachId, new DatabaseService.DatabaseCallback<Coach>() {
+            @Override
+            public void onCompleted(Coach result) {
+                coach = result;
+                if (coach != null) {
+                    etNameCoach.setText(coach.getFname() + " " + coach.getLname());
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(CoachRequest.this, "Failed to load coach data", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
+
 
 
     private void initViews() {

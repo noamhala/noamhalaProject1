@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1A1A2E"
-    tools:context=".screens.DetailsWorkout">
+    tools:context=".screens.TraineeProfile">
 
     <!-- Title -->
     <TextView
@@ -200,6 +200,7 @@
         app:layout_constraintEnd_toEndOf="@id/tv_height_trainee" />
 
     <!-- Save Button -->
+    <!-- Save Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_details_trainee"
         android:layout_width="0dp"
@@ -233,5 +234,24 @@
         app:layout_constraintTop_toBottomOf="@id/btn_save_details_trainee"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Delete User Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_delete_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="מחק משתמש"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="24dp"
+        app:backgroundTint="#FF4500"
+        app:layout_constraintTop_toBottomOf="@id/btn_history_trainee"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

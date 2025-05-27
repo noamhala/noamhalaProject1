@@ -3,6 +3,7 @@ package com.ariel.noamhalaproject1.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,11 +13,12 @@ import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
+import com.google.android.material.button.MaterialButton;
 
 public class CoachProfile extends AppCompatActivity {
 
     private EditText etCoachName, etCoachPhone, etCoachEmail, etCoachCity, etCoachDomain, etCoachPrice, etCoachExperience;
-    private com.google.android.material.button.MaterialButton btnSaveDetails, btnViewHistory;
+    private MaterialButton btnSaveDetails, btnViewHistory, btn_delete_user;
     private DatabaseService databaseService;
     private String coachId;
     private Coach currentCoach;
@@ -24,21 +26,26 @@ public class CoachProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_workout); // Ensure layout uses EditTexts with correct IDs
+        setContentView(R.layout.activity_coach_profile); // Use your corrected layout file here
 
-        // Initialize views
-        etCoachName = findViewById(R.id.tv_trainee_name);
-        etCoachPhone = findViewById(R.id.tv_phone_trainee);
-        etCoachEmail = findViewById(R.id.tv_email_trainee);
-        etCoachCity = findViewById(R.id.tv_city_trainee);
-        etCoachDomain = findViewById(R.id.tv_age_trainee);
-        etCoachPrice = findViewById(R.id.tv_height_trainee);
-        etCoachExperience = findViewById(R.id.tv_weight_trainee);
-        btnSaveDetails = findViewById(R.id.btn_save_details_trainee);
-        btnViewHistory = findViewById(R.id.btn_history_trainee);
+        // Update IDs based on the corrected XML layout
+        etCoachName = findViewById(R.id.tv_coach_name);
+        etCoachPhone = findViewById(R.id.tv_phone_coach);
+        etCoachEmail = findViewById(R.id.tv_email_coach);
+        etCoachCity = findViewById(R.id.tv_city_coach);
+        etCoachDomain = findViewById(R.id.tv_domain_coach);
+        etCoachPrice = findViewById(R.id.tv_price_coach);
+        etCoachExperience = findViewById(R.id.tv_experience_coach);
+        btnSaveDetails = findViewById(R.id.btn_save_details);
+        btnViewHistory = findViewById(R.id.btn_history_coach);
+        btn_delete_user = findViewById(R.id.btn_delete_user);
+
+        coachId = getIntent().getStringExtra("coachId");
+        if (coachId == null || coachId.isEmpty()) {
+            coachId = AuthenticationService.getInstance().getCurrentUserId();
+        }
 
         databaseService = DatabaseService.getInstance();
-        coachId = AuthenticationService.getInstance().getCurrentUserId();
 
         if (coachId == null || coachId.isEmpty()) {
             Toast.makeText(this, "Invalid coach ID", Toast.LENGTH_SHORT).show();
@@ -118,9 +125,36 @@ public class CoachProfile extends AppCompatActivity {
 
         btnViewHistory.setOnClickListener(v -> {
             Intent intent = new Intent(CoachProfile.this, GetCoachSchedule.class);
-            intent.putExtra("coachId", coachId); // Pass the coach ID to the schedule screen
+            intent.putExtra("coachId", coachId);
             startActivity(intent);
         });
 
+        btn_delete_user.setOnClickListener(v -> {
+            Intent intent = new Intent(CoachProfile.this, GetCoachSchedule.class);
+            intent.putExtra("coachId", coachId);
+            startActivity(intent);
+        });
+
+    }
+
+    private void deleteUser() {
+        if (currentCoach == null || coachId == null) {
+            Toast.makeText(this, "Error: No coach loaded", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        databaseService.deleteCoach(coachId, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void unused) {
+                Toast.makeText(CoachProfile.this, "המשתמש נמחק בהצלחה", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(CoachProfile.this, "שגיאה במחיקת המשתמש", Toast.LENGTH_SHORT).show();
+                Log.e("CoachProfile", "Delete failed", e);
+            }
+        });
     }
 }
