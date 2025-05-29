@@ -64,6 +64,12 @@ public class GetCoachSchedule extends AppCompatActivity {
             public boolean isShowReject() {
                 return false;
             }
+            @Override
+
+            public boolean isShowAdd() {
+                return false;
+            }
+
 
             @Override
             public void onAccept(Workout workout) {}
@@ -71,13 +77,15 @@ public class GetCoachSchedule extends AppCompatActivity {
             @Override
             public void onReject(Workout workout) {}
 
+            public void onAdd(Workout workout) {}
+
             @Override
             public void onDetails(Workout workout) {
                 Intent intent = new Intent(GetCoachSchedule.this, DetailsWorkout.class);
                 intent.putExtra("workout", workout);
                 startActivity(intent);
             }
-        }); // WorkoutAdapter will use the finalized XML layout
+        });
         lvCoachSchedule.setAdapter(workoutAdapter);
 
         // Fetch workouts for the coach

@@ -23,37 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHolder> implements Filterable {
+    private final OnCoachListener listener;
     private List<Coach> coaches;
     private List<Coach> coachesFull; // List for unfiltered data
     private Context context;
-    private boolean isAdmin;
 
 
-    public CoachAdapter(List<Coach> coaches) {
-        this.coaches = coaches;
-        this.coachesFull = new ArrayList<>(coaches); // Copy of the full list
-    }
-
-    public CoachAdapter(List<Coach> coaches, Context context, boolean isAdmin) {
-        this.coaches = coaches;
-        this.coachesFull = new ArrayList<>(coaches); // For filtering
-        this.context = context;
-        this.isAdmin = isAdmin;
+    public interface OnCoachListener {
+        public void onCoachClick(Coach coach);
     }
 
 
-    public CoachAdapter(List<Coach> coaches, List<Coach> coachesFull, Context context) {
+
+    public CoachAdapter(List<Coach> coaches, OnCoachListener listener) {
         this.coaches = coaches;
-        this.coachesFull = coachesFull;
-        this.context = context;
-
-    }
-
-    public CoachAdapter(List<Coach> coaches, Context context) {
-
-        this.coaches = coaches;
-
-        this.context = context;
+        this.coachesFull = new ArrayList<>(coaches);
+        this.listener = listener;
     }
 
 
@@ -69,6 +54,8 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHol
     public void onBindViewHolder(@NonNull CoachAdapter.CoachViewHolder holder, int position) {
         Coach coach = coaches.get(position);
         holder.bind(coach);
+
+        holder.itemView.setOnClickListener(v -> listener.onCoachClick(coach));
     }
 
     @Override
@@ -145,20 +132,6 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.CoachViewHol
             txtPhoneNumber.setText(coach.getPhone());
             TxtExperience.setText(coach.getExperience() + " years");
 
-            itemView.setOnClickListener(v -> {
-                Intent intent;
-
-                if (isAdmin) {
-                    // Admin: go to CoachProfile
-                    intent = new Intent(context, CoachProfile.class);
-                } else {
-                    // Trainee: go to CoachRequest
-                    intent = new Intent(context, CoachRequest.class);
-                }
-
-                intent.putExtra("coachId", coach.getId()); // ✅ safe and clean
-                context.startActivity(intent);
-            });
         }
 
     }

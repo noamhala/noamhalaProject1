@@ -62,6 +62,10 @@ public class PendingWorkouts extends AppCompatActivity {
                     public boolean isShowReject() {
                         return true;
                     }
+                    @Override
+                    public boolean isShowAdd() {
+                        return false; // or true, depending on what you want
+                    }
 
                     @Override
                     public void onAccept(Workout workout) {
@@ -74,15 +78,19 @@ public class PendingWorkouts extends AppCompatActivity {
                     }
 
                     @Override
+                    public void onAdd(Workout workout) {
+                        // Leave empty or handle "Add" logic if needed
+                    }
+
+                    @Override
                     public void onDetails(Workout workout) {
                         Intent intent = new Intent(PendingWorkouts.this, DetailsWorkout.class);
                         intent.putExtra("workout", workout);
                         startActivity(intent);
-
                     }
-
                 });
                 lvWorkoutRequests.setAdapter(workoutAdapter);
+
             }
 
             @Override
@@ -130,7 +138,7 @@ public class PendingWorkouts extends AppCompatActivity {
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(PendingWorkouts.this, "Failed to approve workout.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PendingWorkouts.this, "Failed to reject workout.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -41,11 +41,9 @@ public class AdminPage extends AppCompatActivity {
         startActivity(go);
     }
     public void goCoachList(View view) {
-        Intent go = new Intent(getApplicationContext(), ListCoach.class);
+        Intent go = new Intent(getApplicationContext(), AdminGetListCoach.class);
         startActivity(go);
-        Intent intent = new Intent(AdminPage.this, ListCoach.class);
-        intent.putExtra("isAdmin", true); // tell ListCoach this is an admin
-        startActivity(intent);
+
     }
     public void goMainPage(View view) {
         Intent go = new Intent(getApplicationContext(), MainActivity.class);

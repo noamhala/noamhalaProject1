@@ -1,8 +1,10 @@
 package com.ariel.noamhalaproject1.screens;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.SearchView;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.adapters.CoachAdapter;
@@ -20,19 +21,18 @@ import com.ariel.noamhalaproject1.services.DatabaseService;
 
 import java.util.List;
 
-public class ListCoach extends AppCompatActivity {
+public class AdminGetListCoach extends AppCompatActivity {
 
     RecyclerView rvCoaches;
     private DatabaseService databaseService = DatabaseService.getInstance();
     private CoachAdapter coachAdapter;
 
-    boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_list_coach);
+        setContentView(R.layout.activity_admin_get_list_coach);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -51,17 +51,20 @@ public class ListCoach extends AppCompatActivity {
                 coachAdapter = new CoachAdapter(coaches, new CoachAdapter.OnCoachListener() {
                     @Override
                     public void onCoachClick(Coach coach) {
-                        Intent intent = new Intent(ListCoach.this, CoachRequest.class);
+                        Intent intent = new Intent(AdminGetListCoach.this, CoachProfile.class);
                         intent.putExtra("coachId", coach.getId());
                         startActivity(intent);
                     }
                 });
+
+
+
                 rvCoaches.setAdapter(coachAdapter);
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e("ListCoach", e.getMessage());
+                Log.e("AdminGetListCoach", e.getMessage());
             }
         });
 

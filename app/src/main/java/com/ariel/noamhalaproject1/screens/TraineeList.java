@@ -57,7 +57,7 @@ public class TraineeList extends AppCompatActivity {
             }
         });
 
-        SearchView searchView = findViewById(R.id.searchView);
+        SearchView searchView = findViewById(R.id.searchView_admin);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -2,6 +2,7 @@ package com.ariel.noamhalaproject1.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -77,7 +78,7 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
         // ✅ REPLACE the object deserialization with ID fetching
         String coachId = getIntent().getStringExtra("coachId");
         if (coachId == null || coachId.isEmpty()) {
-            android.util.Log.e("CoachRequest", "Invalid coach ID");
+            Log.e("CoachRequest", "Invalid coach ID");
             finish(); // or show an error
             return;
         }

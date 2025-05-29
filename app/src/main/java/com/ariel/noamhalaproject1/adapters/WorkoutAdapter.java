@@ -26,25 +26,27 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
     public interface OnItemWorkout {
         public boolean isShowAccept();
         public boolean isShowReject();
+        public boolean isShowAdd();
         public void onAccept(Workout workout);
         public void onReject(Workout workout);
         public void onDetails(Workout workout);
+        public void onAdd(Workout workout);
     }
 
     public WorkoutAdapter(Context context, List<Workout> objects, OnItemWorkout onItemWorkout) {
-        super(context, 0, objects);
-        this.onItemWorkout = onItemWorkout;
-        this.objects = objects;
-        layoutInflater = ((Activity) context).getLayoutInflater();
-    }
+            super(context, 0, objects);
+            this.onItemWorkout = onItemWorkout;
+            this.objects = objects;
+            layoutInflater = ((Activity) context).getLayoutInflater();
+        }
 
-    // ViewHolder pattern for better performance
-    static class ViewHolder {
-        TextView tvCoach;
+        // ViewHolder pattern for better performance
+        static class ViewHolder {
+            TextView tvCoach;
         TextView tvTrainee;
         TextView tvDate;
         TextView tvHour;
-        Button btnAccept, btnReject;
+        Button btnAccept, btnReject,btnAdd;
 
 
         public ViewHolder(View convertView) {
@@ -54,6 +56,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
             tvHour = convertView.findViewById(R.id.tvHour);
             btnAccept = convertView.findViewById(R.id.btn_item_workout_accept);
             btnReject = convertView.findViewById(R.id.btn_item_workout_decline);
+            btnAdd = convertView.findViewById(R.id.btn_item_workout_add);
         }
     }
 
@@ -86,9 +89,12 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
 
         holder.btnAccept.setVisibility(onItemWorkout.isShowAccept() ? View.VISIBLE : View.GONE);
         holder.btnReject.setVisibility(onItemWorkout.isShowReject() ? View.VISIBLE : View.GONE);
+        holder.btnAdd.setVisibility(onItemWorkout.isShowAdd() ? View.VISIBLE : View.GONE);
 
         holder.btnAccept.setOnClickListener(v -> onItemWorkout.onAccept(workout));
         holder.btnReject.setOnClickListener(v -> onItemWorkout.onReject(workout));
+        holder.btnAdd.setOnClickListener(v -> onItemWorkout.onAdd(workout));
+
         convertView.setOnClickListener(v -> onItemWorkout.onDetails(workout));
 
         return convertView;

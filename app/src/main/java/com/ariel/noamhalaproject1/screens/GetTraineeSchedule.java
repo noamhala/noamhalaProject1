@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
 import com.ariel.noamhalaproject1.adapters.WorkoutAdapter;
+import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.Workout;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
@@ -62,10 +63,20 @@ public class GetTraineeSchedule extends AppCompatActivity {
             }
 
             @Override
+            public boolean isShowAdd() {
+                return true;
+            }
+
+            @Override
             public void onAccept(Workout workout) {}
 
             @Override
             public void onReject(Workout workout) {}
+
+            @Override
+            public void onAdd(Workout workout) {
+                AddWorkout(workout);
+            }
 
             @Override
             public void onDetails(Workout workout) {
@@ -73,7 +84,7 @@ public class GetTraineeSchedule extends AppCompatActivity {
                 intent.putExtra("workout", workout);
                 startActivity(intent);
             }
-        });  // Pass the list of workouts to the adapter
+        });
         lvTraineeSchedule.setAdapter(adpTraineeSchedule);
 
         // Fetch the workouts for the trainee
@@ -82,22 +93,27 @@ public class GetTraineeSchedule extends AppCompatActivity {
             public void onCompleted(List<Workout> ws) {
                 Log.d("GetTraineeSchedule", "Retrieved workouts: " + ws.size());
                 ws.removeIf(workout -> workout.getAccepted() == null || !workout.getAccepted());
-                workouts.addAll(ws);  // Add the retrieved workouts to the list
+                workouts.addAll(ws);
                 if (workouts.isEmpty()) {
                     Toast.makeText(GetTraineeSchedule.this, "No approved workouts found", Toast.LENGTH_SHORT).show();
                 }
-                adpTraineeSchedule.notifyDataSetChanged();  // Notify the adapter to update the ListView
-
+                adpTraineeSchedule.notifyDataSetChanged();
                 Log.e("workoutList", workouts.toString());
             }
-
 
             @Override
             public void onFailed(Exception e) {
                 Log.e("GetTraineeScheduleError", "Error fetching workouts", e);
-                // Show error message to the user
                 Toast.makeText(GetTraineeSchedule.this, "Failed to fetch workouts", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void AddWorkout(Workout workout) {
+
+            Intent intent = new Intent(GetTraineeSchedule.this, CoachRequest.class);
+            intent.putExtra("coachId", workout.getCoachId());
+            startActivity(intent);
+
     }
 }
