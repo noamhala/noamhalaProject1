@@ -1,6 +1,9 @@
 package com.ariel.noamhalaproject1.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +17,7 @@ import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.Workout;
 import com.ariel.noamhalaproject1.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DetailsWorkout extends AppCompatActivity {
 
@@ -92,5 +96,33 @@ public class DetailsWorkout extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_about) {
+            Intent go = new Intent(getApplicationContext(), About.class);
+            startActivity(go);
+            return true;
+        } else if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut(); // Log out the user
+
+            Intent goLogin = new Intent(getApplicationContext(), Login.class);
+            goLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear back stack
+            startActivity(goLogin);
+            finish(); // Finish current activity
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

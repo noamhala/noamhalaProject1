@@ -1,9 +1,6 @@
 package com.ariel.noamhalaproject1.screens;
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,35 +10,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.ariel.noamhalaproject1.R;
-
-
 import com.ariel.noamhalaproject1.models.Coach;
 import com.ariel.noamhalaproject1.models.Trainee;
 import com.ariel.noamhalaproject1.models.User;
 import com.ariel.noamhalaproject1.services.AuthenticationService;
 import com.ariel.noamhalaproject1.services.DatabaseService;
 import com.ariel.noamhalaproject1.utils.SharedPreferencesUtil;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail, etPassword;
     private Button btnLog;
-
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
 
-    private User user;
+    private static final String ADMIN_EMAIL = "noamhala@gmail.com";
     private static final String TAG = "LoginActivity";
-    private Trainee trainee2=null;
-    private Coach coach=null;
+
+    public static boolean isAdmin = false;
+
     private String uid;
 
     @Override
@@ -49,21 +42,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Edge-to-edge handling
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        /// get the instance of the authentication service
         authenticationService = AuthenticationService.getInstance();
-        /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
-        // Initialize views
         initViews();
-        // Pre-fill saved credentials
         loadSavedCredentials();
     }
 
@@ -75,13 +63,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void loadSavedCredentials() {
-        user = SharedPreferencesUtil.getUser(Login.this);
-        if(user!=null) {
-
-            String email = user.getEmail();
-            String pass = user.getPassword();
-            etEmail.setText(email);
-            etPassword.setText(pass);
+        User user = SharedPreferencesUtil.getUser(Login.this);
+        if (user != null) {
+            etEmail.setText(user.getEmail());
+            etPassword.setText(user.getPassword());
         }
     }
 
@@ -96,59 +81,53 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 return;
             }
 
-            // Attempt sign-in
-         else    loginUser(email, pass);
+            loginUser(email, pass);
         }
     }
 
     private void loginUser(String email, String password) {
         authenticationService.signIn(email, password, new AuthenticationService.AuthCallback<String>() {
-            /// Callback method called when the operation is completed
-            /// @param uid the user ID of the user that is logged in
             @Override
             public void onCompleted(String id) {
-                uid=id;
-                Log.d(TAG, "onCompleted: User logged in successfully");
-                /// get the user data from the database
+                uid = id;
+                isAdmin = email.equalsIgnoreCase(ADMIN_EMAIL);
+
+                if (isAdmin) {
+                    startActivity(new Intent(Login.this, AdminPage.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    return; // prevent continuing to Trainee/Coach lookup
+                }
+
+                // First try to get Trainee
                 databaseService.getTrainee(uid, new DatabaseService.DatabaseCallback<Trainee>() {
                     @Override
                     public void onCompleted(Trainee trainee) {
-
-                       trainee2=trainee;
-                        Log.d(TAG, "onCompleted: User data retrieved successfully");
-                        /// save the user data to shared preferences
-                       SharedPreferencesUtil.saveUser(Login.this, trainee2);
-                        /// Redirect to main activity and clear back stack to prevent user from going back to login screen
-                        Intent mainIntent = new Intent(Login.this, TraineeMainPage.class);
-                        /// Clear the back stack (clear history) and start the MainActivity
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        if(trainee2!=null)
-                             startActivity(mainIntent);
-
-                        else {
-
+                        if (trainee != null) {
+                            SharedPreferencesUtil.saveUser(Login.this, trainee);
+                            Intent mainIntent = new Intent(Login.this, TraineeMainPage.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(mainIntent);
+                        } else {
+                            // Try Coach
                             databaseService.getCoach(uid, new DatabaseService.DatabaseCallback<Coach>() {
-
                                 @Override
-                                public void onCompleted(Coach object) {
-
-                                    coach=object;
-                                    Log.d(TAG, "onCompleted: User data retrieved successfully");
-                                    /// save the user data to shared preferences
-                                    SharedPreferencesUtil.saveUser(Login.this, coach);
-
-                                    /// Redirect to main activity and clear back stack to prevent user from going back to login screen
-                                    Intent mainIntent = new Intent(Login.this, CoachMainPage.class);
-                                    /// Clear the back stack (clear history) and start the MainActivity
-                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(mainIntent);
-
+                                public void onCompleted(Coach coach) {
+                                    if (coach != null) {
+                                        SharedPreferencesUtil.saveUser(Login.this, coach);
+                                        Intent mainIntent = new Intent(Login.this, CoachMainPage.class);
+                                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(mainIntent);
+                                    } else {
+                                        Toast.makeText(Login.this, "User not found.", Toast.LENGTH_SHORT).show();
+                                        authenticationService.signOut();
+                                    }
                                 }
 
                                 @Override
                                 public void onFailed(Exception e) {
-
+                                    Log.e(TAG, "Coach fetch failed", e);
+                                    Toast.makeText(Login.this, "Error fetching coach.", Toast.LENGTH_SHORT).show();
+                                    authenticationService.signOut();
                                 }
                             });
                         }
@@ -156,53 +135,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                     @Override
                     public void onFailed(Exception e) {
-                        trainee2=null;
-
+                        Log.e(TAG, "Trainee fetch failed", e);
+                        Toast.makeText(Login.this, "Error fetching trainee.", Toast.LENGTH_SHORT).show();
+                        authenticationService.signOut();
                     }
                 });
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "onFailed: Failed to retrieve user data", e);
-                /// Show error message to user
+                Log.e(TAG, "Login failed", e);
                 etPassword.setError("Invalid email or password");
                 etPassword.requestFocus();
-                /// Sign out the user if failed to retrieve user data
-                /// This is to prevent the user from being logged in again
                 authenticationService.signOut();
-                Log.e(TAG, "onFailed: Failed to log in user", e);
-                /// Show error message to user
-                etPassword.setError("Invalid email or password");
-                etPassword.requestFocus();
             }
-    });
-
+        });
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_about) {
-            Intent go = new Intent(getApplicationContext(), About.class);
-            startActivity(go);
+            startActivity(new Intent(getApplicationContext(), About.class));
             return true;
-        } else {
-            return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 }
-
-
-
-
-
-
-
-
-
-

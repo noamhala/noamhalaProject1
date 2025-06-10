@@ -73,17 +73,23 @@
     <!-- Date Picker -->
 
     <!-- Goals -->
+
+    <!-- Location -->
+
+    <!-- Submit Button -->
+
     <DatePicker
         android:id="@+id/datePicker"
         style="@android:style/Widget.DatePicker"
-        android:layout_width="293dp"
-        android:layout_height="182dp"
+        android:layout_width="312dp"
+        android:layout_height="253dp"
         android:layout_marginTop="28dp"
-        android:background="#1A1A2E"
-        android:calendarTextColor="#ADDFEF"
-        android:datePickerMode="calendar"
+        android:background="#DBDBE4"
+        android:calendarTextColor="#A9CFDC"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sphours" />
 
@@ -91,36 +97,35 @@
         android:id="@+id/etGoals"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#1E90FF"
         android:hint="Goals: Build muscle, improve endurance"
         android:inputType="textMultiLine"
+        android:padding="12dp"
         android:textColor="@android:color/white"
         android:textColorHint="#B0C4DE"
-        android:backgroundTint="#1E90FF"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/datePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/datePicker" />
 
-    <!-- Location -->
     <EditText
         android:id="@+id/etLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#00BFFF"
         android:hint="Location: Gym, Outdoor, Home"
         android:inputType="text"
+        android:padding="12dp"
         android:textColor="@android:color/white"
         android:textColorHint="#B0C4DE"
-        android:backgroundTint="#00BFFF"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etGoals"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etGoals" />
 
-    <!-- Submit Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmitRequest"
         android:layout_width="0dp"
@@ -137,7 +142,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etLocation"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/etLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
