@@ -13,6 +13,14 @@
         android:theme="@style/Theme.NoamhalaProject1"
         tools:targetApi="33">
         <activity
+            android:name=".screens.splash"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".screens.AdminGetListCoach"
             android:exported="false" />
         <activity
@@ -40,16 +48,10 @@
             android:name=".screens.GetCoachSchedule"
             android:exported="false" />
         <activity
-            android:name=".screens.CoachSetSchedule"
-            android:exported="false" />
-        <activity
             android:name=".screens.TraineeList"
             android:exported="false" />
         <activity
             android:name=".screens.CoachRequest"
-            android:exported="false" />
-        <activity
-            android:name=".screens.CoachSchedule"
             android:exported="false" />
         <activity
             android:name=".screens.ListCoach"
@@ -78,11 +80,6 @@
         <activity
             android:name=".screens.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
