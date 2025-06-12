@@ -25,6 +25,7 @@ import com.ariel.noamhalaproject1.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CoachRequest extends AppCompatActivity implements View.OnClickListener {
 
@@ -114,11 +115,28 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
         sphours = findViewById(R.id.sphours);
         etLocation = findViewById(R.id.etLocation);
         datePicker = findViewById(R.id.datePicker);
+        datePicker.setMinDate(System.currentTimeMillis() - 1000);
         btnSubmitRequest.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        // Validate date
+        Calendar selected = Calendar.getInstance();
+        selected.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        if (selected.before(today)) {
+            Toast.makeText(this, "You cannot select a past date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Proceed with creating workout
         String id = DatabaseService.getInstance().generateWorkoutId();
         String zero = "", zero2 = "";
 
@@ -133,14 +151,13 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
         location = etLocation.getText().toString();
         String currentTrainee = AuthenticationService.getInstance().getCurrentUserId();
 
-        // Create the Workout object
         final Workout workout = new Workout(id, currentTrainee, coach.getId(), selectedDate, hour, goals, location, null);
 
         databaseService.updateWorkout(workout, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
                 Toast.makeText(CoachRequest.this, "Workout Request Submitted Successfully", Toast.LENGTH_SHORT).show();
-                resetFields(); // Reset fields after submission
+                resetFields();
                 Intent go = new Intent(CoachRequest.this, TraineeMainPage.class);
                 startActivity(go);
             }
@@ -151,6 +168,7 @@ public class CoachRequest extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
 
 
     // Reset the fields after submission
